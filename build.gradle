@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath files("src/teavmc-classpath/resources")
+    }
+}
+plugins {
+    id "java"
+    id "org.teavm" version "0.9.2"
+    id "com.diffplug.spotless" version "7.0.1"
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation "org.teavm:teavm-jso:0.9.2"
+    implementation "org.teavm:teavm-jso-apis:0.9.2"
+    implementation "org.teavm:teavm-core:0.9.2"
+    teavm(teavm.libs.jso)
+    teavm(teavm.libs.jsoApis)
+}
+
+def folder = "javascript"
+def name = "classes.js"
+
+teavm.js {
+    targetFileName = "../" + name
+    sourceMap = true
+    obfuscated = false;
+    processMemory = 2048
+    entryPointName = "main"
+    mainClass = "com.demez.minecraft.Client.Client"
+    outputDir = file(folder)
+    properties = [ "java.util.TimeZone.autodetect": "true" ]
+    debugInformation = true
+}
+
+
