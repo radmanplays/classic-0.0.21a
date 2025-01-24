@@ -143,12 +143,7 @@ public final class Minecraft implements Runnable {
 				if(this.mouseGrabbed) {
 					this.player.releaseAllKeys();
 					this.mouseGrabbed = false;
-					if(this.appletMode) {
-							Mouse.setNativeCursor((Cursor)null);
-						
-					} else {
-						Mouse.setGrabbed(false);
-					}
+					Mouse.setGrabbed(false);
 				}
 
 				int var2 = this.width * 240 / this.height;
@@ -445,7 +440,6 @@ public final class Minecraft implements Runnable {
 		if(!this.mouseGrabbed) {
 			this.mouseGrabbed = true;
 			if(this.appletMode) {
-					Mouse.setNativeCursor(this.emptyCursor);
 					Mouse.setCursorPosition(this.width / 2, this.height / 2);
 				
 			} else {
