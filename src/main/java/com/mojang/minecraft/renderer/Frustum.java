@@ -1,9 +1,13 @@
 package com.mojang.minecraft.renderer;
 
-import com.mojang.minecraft.phys.AABB;
 import java.nio.FloatBuffer;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+
+import com.mojang.minecraft.phys.AABB;
+
+import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
 
 public final class Frustum {
 	private float[][] m_Frustum = new float[6][4];
@@ -20,8 +24,8 @@ public final class Frustum {
 		var0._proj.clear();
 		var0._modl.clear();
 		var0._clip.clear();
-		GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, var0._proj);
-		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, var0._modl);
+		GL11.glGetFloat(RealOpenGLEnums.GL_PROJECTION_MATRIX, var0._proj);
+		GL11.glGetFloat(RealOpenGLEnums.GL_MODELVIEW_MATRIX, var0._modl);
 		var0._proj.flip().limit(16);
 		var0._proj.get(var0.proj);
 		var0._modl.flip().limit(16);

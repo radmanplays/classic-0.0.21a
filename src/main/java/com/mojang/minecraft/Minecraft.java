@@ -33,9 +33,13 @@ import com.mojang.minecraft.renderer.Textures;
 import com.mojang.minecraft.renderer.texture.TextureFX;
 import com.mojang.minecraft.renderer.texture.TextureLavaFX;
 import com.mojang.minecraft.renderer.texture.TextureWaterFX;
+
+import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
+
 import java.awt.AWTException;
 import java.awt.Canvas;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
@@ -51,7 +55,6 @@ import javax.swing.JOptionPane;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
-import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -141,11 +144,8 @@ public final class Minecraft implements Runnable {
 					this.player.releaseAllKeys();
 					this.mouseGrabbed = false;
 					if(this.appletMode) {
-						try {
 							Mouse.setNativeCursor((Cursor)null);
-						} catch (LWJGLException var4) {
-							var4.printStackTrace();
-						}
+						
 					} else {
 						Mouse.setGrabbed(false);
 					}
@@ -197,7 +197,7 @@ public final class Minecraft implements Runnable {
 			this.fogColor1.put(new float[]{(float)14 / 255.0F, (float)11 / 255.0F, (float)10 / 255.0F, 1.0F});
 			this.fogColor1.flip();
 			if(this.parent != null) {
-				Display.setParent(this.parent);
+				//Display.setParent(this.parent);
 			} else if(this.fullscreen) {
 				Display.setFullscreen(true);
 				this.width = Display.getDisplayMode().getWidth();
@@ -231,17 +231,17 @@ public final class Minecraft implements Runnable {
 			}
 
 			checkGlError("Pre startup");
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glShadeModel(GL11.GL_SMOOTH);
+			GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glShadeModel(RealOpenGLEnums.GL_SMOOTH);
 			GL11.glClearDepth(1.0D);
-			GL11.glEnable(GL11.GL_DEPTH_TEST);
-			GL11.glDepthFunc(GL11.GL_LEQUAL);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
-			GL11.glCullFace(GL11.GL_BACK);
-			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glEnable(RealOpenGLEnums.GL_DEPTH_TEST);
+			GL11.glDepthFunc(RealOpenGLEnums.GL_LEQUAL);
+			GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
+			GL11.glAlphaFunc(RealOpenGLEnums.GL_GREATER, 0.0F);
+			GL11.glCullFace(RealOpenGLEnums.GL_BACK);
+			GL11.glMatrixMode(RealOpenGLEnums.GL_PROJECTION);
 			GL11.glLoadIdentity();
-			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+			GL11.glMatrixMode(RealOpenGLEnums.GL_MODELVIEW);
 			checkGlError("Startup");
 			this.font = new Font("/default.png", this.textures);
 			IntBuffer var8 = BufferUtils.createIntBuffer(256);
@@ -286,11 +286,8 @@ public final class Minecraft implements Runnable {
 			}
 
 			if(this.appletMode) {
-				try {
-					var4.emptyCursor = new Cursor(16, 16, 0, 0, 1, var8, (IntBuffer)null);
-				} catch (LWJGLException var27) {
-					var27.printStackTrace();
-				}
+					var4.emptyCursor = new Cursor(16);
+				
 			}
 
 			checkGlError("Post startup");
@@ -398,10 +395,10 @@ public final class Minecraft implements Runnable {
 							} else {
 								GL11.glViewport(0, 0, this.width, this.height);
 								GL11.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-								GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
-								GL11.glMatrixMode(GL11.GL_PROJECTION);
+								GL11.glClear(RealOpenGLEnums.GL_DEPTH_BUFFER_BIT | RealOpenGLEnums.GL_COLOR_BUFFER_BIT);
+								GL11.glMatrixMode(RealOpenGLEnums.GL_PROJECTION);
 								GL11.glLoadIdentity();
-								GL11.glMatrixMode(GL11.GL_MODELVIEW);
+								GL11.glMatrixMode(RealOpenGLEnums.GL_MODELVIEW);
 								GL11.glLoadIdentity();
 								this.initGui();
 							}
@@ -448,12 +445,9 @@ public final class Minecraft implements Runnable {
 		if(!this.mouseGrabbed) {
 			this.mouseGrabbed = true;
 			if(this.appletMode) {
-				try {
 					Mouse.setNativeCursor(this.emptyCursor);
 					Mouse.setCursorPosition(this.width / 2, this.height / 2);
-				} catch (LWJGLException var2) {
-					var2.printStackTrace();
-				}
+				
 			} else {
 				Mouse.setGrabbed(true);
 			}
@@ -541,7 +535,7 @@ public final class Minecraft implements Runnable {
 			++((ChatLine)var1.messages.get(var2)).counter;
 		}
 
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textures.getTextureId("/terrain.png"));
+		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, this.textures.getTextureId("/terrain.png"));
 		Textures var8 = this.textures;
 
 		for(var2 = 0; var2 < var8.textureList.size(); ++var2) {
@@ -550,7 +544,7 @@ public final class Minecraft implements Runnable {
 			var8.textureBuffer.clear();
 			var8.textureBuffer.put(var3.imageData);
 			var8.textureBuffer.position(0).limit(var3.imageData.length);
-			GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, var3.iconIndex % 16 << 4, var3.iconIndex / 16 << 4, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer)var8.textureBuffer);
+			GL11.glTexSubImage2D(RealOpenGLEnums.GL_TEXTURE_2D, 0, var3.iconIndex % 16 << 4, var3.iconIndex / 16 << 4, 16, 16, RealOpenGLEnums.GL_RGBA, RealOpenGLEnums.GL_UNSIGNED_BYTE, (ByteBuffer)var8.textureBuffer);
 		}
 
 		int var5;
@@ -786,7 +780,7 @@ public final class Minecraft implements Runnable {
 		}
 
 		GL11.glClearColor(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 0.0F);
-		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
+		GL11.glClear(RealOpenGLEnums.GL_DEPTH_BUFFER_BIT | RealOpenGLEnums.GL_COLOR_BUFFER_BIT);
 		checkGlError("Set viewport");
 		float var13 = this.player.xRotO + (this.player.xRot - this.player.xRotO) * var1;
 		float var17 = this.player.yRotO + (this.player.yRot - this.player.yRotO) * var1;
@@ -811,10 +805,10 @@ public final class Minecraft implements Runnable {
 		checkGlError("Picked");
 		this.fogColorMultiplier = 1.0F;
 		this.renderDistance = (float)(512 >> (this.levelRenderer.drawDistance << 1));
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glMatrixMode(RealOpenGLEnums.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GLU.gluPerspective(70.0F, (float)this.width / (float)this.height, 0.05F, this.renderDistance);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glMatrixMode(RealOpenGLEnums.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		GL11.glTranslatef(0.0F, 0.0F, -0.3F);
 		GL11.glRotatef(this.player.xRotO + (this.player.xRot - this.player.xRotO) * var1, 1.0F, 0.0F, 0.0F);
@@ -824,7 +818,7 @@ public final class Minecraft implements Runnable {
 		var2 = this.player.zo + (this.player.z - this.player.zo) * var1;
 		GL11.glTranslatef(-var7, -var8, -var2);
 		checkGlError("Set up camera");
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glEnable(RealOpenGLEnums.GL_CULL_FACE);
 		Frustum var10 = Frustum.getFrustum();
 		Frustum var15 = var10;
 		LevelRenderer var3 = this.levelRenderer;
@@ -854,7 +848,7 @@ public final class Minecraft implements Runnable {
 		checkGlError("Update chunks");
 		boolean var11 = this.level.isSolid(this.player.x, this.player.y, this.player.z, 0.1F);
 		this.setupFog();
-		GL11.glEnable(GL11.GL_FOG);
+		GL11.glEnable(RealOpenGLEnums.GL_FOG);
 		this.levelRenderer.render(this.player, 0);
 		int var12;
 		if(var11) {
@@ -881,108 +875,108 @@ public final class Minecraft implements Runnable {
 		checkGlError("Rendered particles");
 		var3 = this.levelRenderer;
 		GL11.glCallList(var3.surroundLists);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
 		this.setupFog();
 		this.levelRenderer.renderClouds(var1);
 		this.setupFog();
-		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 		if(this.hitResult != null) {
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
+			GL11.glDisable(RealOpenGLEnums.GL_ALPHA_TEST);
 			this.levelRenderer.renderHit(this.player, this.hitResult, this.editMode, this.player.inventory.getSelected());
 			LevelRenderer.renderHitOutline(this.hitResult, this.editMode);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glEnable(GL11.GL_LIGHTING);
+			GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
+			GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 		}
 
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
 		this.setupFog();
 		var3 = this.levelRenderer;
 		GL11.glCallList(var3.surroundLists + 1);
-		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(RealOpenGLEnums.GL_BLEND);
 		GL11.glColorMask(false, false, false, false);
 		var12 = this.levelRenderer.render(this.player, 1);
 		GL11.glColorMask(true, true, true, true);
 		if(var12 > 0) {
 			var3 = this.levelRenderer;
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var3.textures.getTextureId("/terrain.png"));
+			GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, var3.textures.getTextureId("/terrain.png"));
 			GL11.glCallLists(var3.dummyBuffer);
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
+			GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
 		}
 
 		GL11.glDepthMask(true);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_FOG);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(RealOpenGLEnums.GL_BLEND);
+		GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
+		GL11.glDisable(RealOpenGLEnums.GL_FOG);
+		GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
 		if(this.hitResult != null) {
-			GL11.glDepthFunc(GL11.GL_LESS);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GL11.glDepthFunc(RealOpenGLEnums.GL_LESS);
+			GL11.glDisable(RealOpenGLEnums.GL_ALPHA_TEST);
 			this.levelRenderer.renderHit(this.player, this.hitResult, this.editMode, this.player.inventory.getSelected());
 			LevelRenderer.renderHitOutline(this.hitResult, this.editMode);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glDepthFunc(GL11.GL_LEQUAL);
+			GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
+			GL11.glDepthFunc(RealOpenGLEnums.GL_LEQUAL);
 		}
 
 	}
 
 	private void toggleLight(boolean var1) {
 		if(!var1) {
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glDisable(GL11.GL_LIGHT0);
+			GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
+			GL11.glDisable(RealOpenGLEnums.GL_LIGHT0);
 		} else {
-			GL11.glEnable(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_LIGHT0);
-			GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-			GL11.glColorMaterial(GL11.GL_FRONT_AND_BACK, GL11.GL_AMBIENT_AND_DIFFUSE);
+			GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
+			GL11.glEnable(RealOpenGLEnums.GL_LIGHT0);
+			GL11.glEnable(RealOpenGLEnums.GL_COLOR_MATERIAL);
+			GL11.glColorMaterial(RealOpenGLEnums.GL_FRONT_AND_BACK, RealOpenGLEnums.GL_AMBIENT_AND_DIFFUSE);
 			float var4 = 0.7F;
 			float var2 = 0.3F;
 			Vec3 var3 = (new Vec3(0.0F, -1.0F, 0.5F)).normalize();
-			GL11.glLight(GL11.GL_LIGHT0, GL11.GL_POSITION, this.getBuffer(var3.x, var3.y, var3.z, 0.0F));
-			GL11.glLight(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, this.getBuffer(var2, var2, var2, 1.0F));
-			GL11.glLight(GL11.GL_LIGHT0, GL11.GL_AMBIENT, this.getBuffer(0.0F, 0.0F, 0.0F, 1.0F));
-			GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(var4, var4, var4, 1.0F));
+			GL11.glLight(RealOpenGLEnums.GL_LIGHT0, RealOpenGLEnums.GL_POSITION, this.getBuffer(var3.x, var3.y, var3.z, 0.0F));
+			GL11.glLight(RealOpenGLEnums.GL_LIGHT0, RealOpenGLEnums.GL_DIFFUSE, this.getBuffer(var2, var2, var2, 1.0F));
+			GL11.glLight(RealOpenGLEnums.GL_LIGHT0, RealOpenGLEnums.GL_AMBIENT, this.getBuffer(0.0F, 0.0F, 0.0F, 1.0F));
+			GL11.glLightModel(RealOpenGLEnums.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(var4, var4, var4, 1.0F));
 		}
 	}
 
 	public final void initGui() {
 		int var1 = this.width * 240 / this.height;
 		int var2 = this.height * 240 / this.height;
-		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glClear(RealOpenGLEnums.GL_DEPTH_BUFFER_BIT);
+		GL11.glMatrixMode(RealOpenGLEnums.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0.0D, (double)var1, (double)var2, 0.0D, 100.0D, 300.0D);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glMatrixMode(RealOpenGLEnums.GL_MODELVIEW);
 		GL11.glLoadIdentity();
 		GL11.glTranslatef(0.0F, 0.0F, -200.0F);
 	}
 
 	private void setupFog() {
-		GL11.glFog(GL11.GL_FOG_COLOR, this.getBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
+		GL11.glFog(RealOpenGLEnums.GL_FOG_COLOR, this.getBuffer(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
 		GL11.glNormal3f(0.0F, -1.0F, 0.0F);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Tile var1 = Tile.tiles[this.level.getTile((int)this.player.x, (int)(this.player.y + 0.12F), (int)this.player.z)];
 		if(var1 != null && var1.getLiquidType() != Liquid.none) {
 			Liquid var2 = var1.getLiquidType();
-			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
+			GL11.glFogi(RealOpenGLEnums.GL_FOG_MODE, RealOpenGLEnums.GL_EXP);
 			if(var2 == Liquid.water) {
-				GL11.glFogf(GL11.GL_FOG_DENSITY, 0.1F);
-				GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(0.4F, 0.4F, 0.9F, 1.0F));
+				GL11.glFogf(RealOpenGLEnums.GL_FOG_DENSITY, 0.1F);
+				GL11.glLightModel(RealOpenGLEnums.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(0.4F, 0.4F, 0.9F, 1.0F));
 			} else if(var2 == Liquid.lava) {
-				GL11.glFogf(GL11.GL_FOG_DENSITY, 2.0F);
-				GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(0.4F, 0.3F, 0.3F, 1.0F));
+				GL11.glFogf(RealOpenGLEnums.GL_FOG_DENSITY, 2.0F);
+				GL11.glLightModel(RealOpenGLEnums.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(0.4F, 0.3F, 0.3F, 1.0F));
 			}
 		} else {
-			GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_LINEAR);
-			GL11.glFogf(GL11.GL_FOG_START, 0.0F);
-			GL11.glFogf(GL11.GL_FOG_END, this.renderDistance);
-			GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(1.0F, 1.0F, 1.0F, 1.0F));
+			GL11.glFogi(RealOpenGLEnums.GL_FOG_MODE, RealOpenGLEnums.GL_LINEAR);
+			GL11.glFogf(RealOpenGLEnums.GL_FOG_START, 0.0F);
+			GL11.glFogf(RealOpenGLEnums.GL_FOG_END, this.renderDistance);
+			GL11.glLightModel(RealOpenGLEnums.GL_LIGHT_MODEL_AMBIENT, this.getBuffer(1.0F, 1.0F, 1.0F, 1.0F));
 		}
 
-		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-		GL11.glColorMaterial(GL11.GL_FRONT, GL11.GL_AMBIENT);
-		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(RealOpenGLEnums.GL_COLOR_MATERIAL);
+		GL11.glColorMaterial(RealOpenGLEnums.GL_FRONT, RealOpenGLEnums.GL_AMBIENT);
+		GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 	}
 
 	private FloatBuffer getBuffer(float var1, float var2, float var3, float var4) {
@@ -999,11 +993,11 @@ public final class Minecraft implements Runnable {
 			this.title = var1;
 			int var3 = this.width * 240 / this.height;
 			int var2 = this.height * 240 / this.height;
-			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glClear(RealOpenGLEnums.GL_DEPTH_BUFFER_BIT);
+			GL11.glMatrixMode(RealOpenGLEnums.GL_PROJECTION);
 			GL11.glLoadIdentity();
 			GL11.glOrtho(0.0D, (double)var3, (double)var2, 0.0D, 100.0D, 300.0D);
-			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+			GL11.glMatrixMode(RealOpenGLEnums.GL_MODELVIEW);
 			GL11.glLoadIdentity();
 			GL11.glTranslatef(0.0F, 0.0F, -200.0F);
 		}
@@ -1024,11 +1018,11 @@ public final class Minecraft implements Runnable {
 		} else {
 			int var2 = this.width * 240 / this.height;
 			int var3 = this.height * 240 / this.height;
-			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
+			GL11.glClear(RealOpenGLEnums.GL_DEPTH_BUFFER_BIT | RealOpenGLEnums.GL_COLOR_BUFFER_BIT);
 			Tesselator var4 = Tesselator.instance;
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
 			int var5 = this.textures.getTextureId("/dirt.png");
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var5);
+			GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, var5);
 			float var8 = 32.0F;
 			var4.begin();
 			var4.color(4210752);
@@ -1040,7 +1034,7 @@ public final class Minecraft implements Runnable {
 			if(var1 >= 0) {
 				var5 = var2 / 2 - 50;
 				int var6 = var3 / 2 + 16;
-				GL11.glDisable(GL11.GL_TEXTURE_2D);
+				GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
 				var4.begin();
 				var4.color(8421504);
 				var4.vertex((float)var5, (float)var6, 0.0F);
@@ -1053,7 +1047,7 @@ public final class Minecraft implements Runnable {
 				var4.vertex((float)(var5 + var1), (float)(var6 + 2), 0.0F);
 				var4.vertex((float)(var5 + var1), (float)var6, 0.0F);
 				var4.end();
-				GL11.glEnable(GL11.GL_TEXTURE_2D);
+				GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
 			}
 
 			this.font.drawShadow(this.title, (var2 - this.font.width(this.title)) / 2, var3 / 2 - 4 - 16, 16777215);

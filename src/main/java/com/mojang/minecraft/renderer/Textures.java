@@ -1,6 +1,5 @@
 package com.mojang.minecraft.renderer;
 
-import com.mojang.minecraft.renderer.texture.TextureFX;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -8,9 +7,15 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+
+import com.mojang.minecraft.renderer.texture.TextureFX;
+
+import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
 
 public class Textures {
 	private HashMap idMap = new HashMap();
@@ -36,9 +41,9 @@ public class Textures {
 		this.idBuffer.clear();
 		GL11.glGenTextures(this.idBuffer);
 		int var2 = this.idBuffer.get(0);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
-		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
-		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, var2);
+		GL11.glTexParameteri(RealOpenGLEnums.GL_TEXTURE_2D, RealOpenGLEnums.GL_TEXTURE_MIN_FILTER, RealOpenGLEnums.GL_NEAREST);
+		GL11.glTexParameteri(RealOpenGLEnums.GL_TEXTURE_2D, RealOpenGLEnums.GL_TEXTURE_MAG_FILTER, RealOpenGLEnums.GL_NEAREST);
 		int var3 = var1.getWidth();
 		int var4 = var1.getHeight();
 		int[] var5 = new int[var3 * var4];
@@ -59,7 +64,7 @@ public class Textures {
 		this.textureBuffer.clear();
 		this.textureBuffer.put(var6);
 		this.textureBuffer.position(0).limit(var6.length);
-		GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, var3, var4, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer)this.textureBuffer);
+		GL11.glTexImage2D(RealOpenGLEnums.GL_TEXTURE_2D, 0, RealOpenGLEnums.GL_RGBA, var3, var4, 0, RealOpenGLEnums.GL_RGBA, RealOpenGLEnums.GL_UNSIGNED_BYTE, (ByteBuffer)this.textureBuffer);
 		return var2;
 	}
 
