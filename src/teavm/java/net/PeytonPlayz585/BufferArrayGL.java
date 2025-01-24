@@ -1,4 +1,4 @@
-package main;
+package net.PeytonPlayz585;
 
 public final class BufferArrayGL { 
 	public final WebGLVertexArray obj; 

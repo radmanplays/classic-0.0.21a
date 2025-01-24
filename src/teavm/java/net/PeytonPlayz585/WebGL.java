@@ -1,4 +1,4 @@
-package main;
+package net.PeytonPlayz585;
 
 import org.lwjgl.LWJGLException;
 import org.teavm.jso.JSBody;
@@ -8,6 +8,7 @@ import org.teavm.jso.dom.css.CSSStyleDeclaration;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
+import net.lax1dude.eaglercraft.adapter.teavm.WebGL2RenderingContext;
 
 public class WebGL {
 

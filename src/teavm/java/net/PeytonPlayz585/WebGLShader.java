@@ -1,4 +1,4 @@
-package main;
+package net.PeytonPlayz585;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.UniformGL;
 
 public class WebGLShader {
 	
@@ -220,10 +221,10 @@ public class WebGLShader {
 	private final boolean enable_fog;
 	private final boolean enable_alphatest;
 	private final boolean enable_unit0;
-	private final ProgramGL globject;
+	private final net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.ProgramGL globject;
 
-	private UniformGL u_matrix_m = null;
-	private UniformGL u_matrix_p = null;
+	private net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.UniformGL u_matrix_m = null;
+	private net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.UniformGL u_matrix_p = null;
 	private UniformGL u_matrix_t = null;
 
 	private UniformGL u_fogColor = null;
@@ -282,7 +283,7 @@ public class WebGLShader {
 			source += "#define CC_unit0\n";
 		source += shader;
 
-		ShaderGL v = GL11.glCreateShader(WebGL2RenderingContext.VERTEX_SHADER);
+		net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.ShaderGL v = GL11.glCreateShader(WebGL2RenderingContext.VERTEX_SHADER);
 		GL11.glShaderSource(v, GL11.glGetShaderHeader() + "\n#define CC_VERT\n" + source);
 		GL11.glCompileShader(v);
 
@@ -291,7 +292,7 @@ public class WebGLShader {
 			throw new RuntimeException("broken shader source");
 		}
 
-		ShaderGL f = GL11.glCreateShader(WebGL2RenderingContext.FRAGMENT_SHADER);
+		net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.ShaderGL f = GL11.glCreateShader(WebGL2RenderingContext.FRAGMENT_SHADER);
 		GL11.glShaderSource(f, GL11.glGetShaderHeader() + "\n#define CC_FRAG\n" + source);
 		GL11.glCompileShader(f);
 

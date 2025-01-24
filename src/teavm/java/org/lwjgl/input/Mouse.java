@@ -12,7 +12,7 @@ import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.events.MouseEvent;
 import org.teavm.jso.dom.events.WheelEvent;
 
-import main.WebGL;
+import net.PeytonPlayz585.WebGL;
 
 
 public class Mouse {

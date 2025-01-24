@@ -4,8 +4,8 @@ import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLElement;
 
-import main.WebGL;
-import main.WebGL2RenderingContext;
+import net.PeytonPlayz585.WebGL;
+import net.PeytonPlayz585.WebGL2RenderingContext;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;

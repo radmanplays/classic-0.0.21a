@@ -1,7 +1,5 @@
 package org.lwjgl.opengl;
 
-import org.lwjgl.util.vector.*;
-
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -10,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 import org.teavm.jso.JSBody;
 import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.Float32Array;
@@ -18,19 +19,19 @@ import org.teavm.jso.typedarrays.Uint8Array;
 import org.teavm.jso.webgl.WebGLBuffer;
 import org.teavm.jso.webgl.WebGLUniformLocation;
 
-import main.BufferArrayGL;
-import main.BufferGL;
-import main.GLEnums;
-import main.WebGL;
-import main.ProgramGL;
-import main.ShaderGL;
-import main.StreamBuffer.StreamBufferInstance;
-import main.TextureGL;
-import main.UniformGL;
-import main.WebGL2RenderingContext;
-import main.WebGLShader;
+import net.PeytonPlayz585.StreamBuffer.StreamBufferInstance;
+import net.PeytonPlayz585.WebGL;
+import net.PeytonPlayz585.WebGLShader;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferArrayGL;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferGL;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.ProgramGL;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.ShaderGL;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.TextureGL;
+import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.UniformGL;
+import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.adapter.teavm.WebGL2RenderingContext;
 
-public class GL11 extends GLEnums {
+public class GL11 extends RealOpenGLEnums {
 	
 	static WebGL2RenderingContext webgl;
 	
@@ -669,6 +670,8 @@ public class GL11 extends GLEnums {
 		}
 	}
 	
+	
+	
 	public static final boolean glIsEnabled(int cap) {
 		switch(cap) {
 			case GL_RESCALE_NORMAL:
@@ -821,6 +824,7 @@ public class GL11 extends GLEnums {
 		int pname2 = 0;
 		switch (pname) {
 		default:
+			
 		case GL_TEXTURE_MAX_ANISOTROPY:
 			pname2 = WebGL2RenderingContext.TEXTURE_MAX_ANISOTROPY_EXT;
 			break;

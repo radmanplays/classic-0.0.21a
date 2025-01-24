@@ -9,7 +9,7 @@ import org.teavm.jso.JSBody;
 import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.events.KeyboardEvent;
 
-import main.WebGL;
+import net.PeytonPlayz585.WebGL;
 
 public class Keyboard {
 	

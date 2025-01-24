@@ -1,4 +1,4 @@
-package main;
+package net.PeytonPlayz585;
 
 public class GLEnums {
     public static final int GL_ACCUM = 256;

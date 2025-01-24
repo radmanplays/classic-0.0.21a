@@ -1,4 +1,4 @@
-package main;
+package net.PeytonPlayz585;
 
 import org.lwjgl.opengl.GL11;
 
@@ -16,25 +16,25 @@ public class StreamBuffer {
 
 		public static class StreamBufferInstance {
 
-			public BufferArrayGL vertexArray = null;
-			public BufferGL vertexBuffer = null;
+			public net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferArrayGL vertexArray = null;
+			public net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferGL vertexBuffer = null;
 			protected int vertexBufferSize = 0;
 
 			public boolean bindQuad16 = false;
 			public boolean bindQuad32 = false;
 
-			public BufferArrayGL getVertexArray() {
+			public net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferArrayGL getVertexArray() {
 				return vertexArray;
 			}
 
-			public BufferGL getVertexBuffer() {
+			public net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferGL getVertexBuffer() {
 				return vertexBuffer;
 			}
 
 		}
 
 		public static interface IStreamBufferInitializer {
-			void initialize(BufferArrayGL vertexArray, BufferGL vertexBuffer);
+			void initialize(net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferArrayGL vertexArray, net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.BufferGL vertexBuffer);
 		}
 
 		public StreamBuffer(int initialSize, int initialCount, int maxCount, IStreamBufferInitializer initializer) {

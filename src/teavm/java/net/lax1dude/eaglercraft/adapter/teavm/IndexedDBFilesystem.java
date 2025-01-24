@@ -24,7 +24,6 @@ import org.teavm.jso.indexeddb.IDBVersionChangeEvent;
 import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.Uint8Array;
 
-import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2;
 import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2.FileEntry;
 
 public class IndexedDBFilesystem {

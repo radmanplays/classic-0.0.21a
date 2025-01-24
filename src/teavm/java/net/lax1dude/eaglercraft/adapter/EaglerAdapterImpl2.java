@@ -26,9 +26,7 @@ import org.teavm.jso.ajax.XMLHttpRequest;
 import org.teavm.jso.browser.TimerHandler;
 import org.teavm.jso.browser.Window;
 import org.teavm.jso.canvas.CanvasRenderingContext2D;
-import org.teavm.jso.canvas.ImageData;
 import org.teavm.jso.dom.css.CSSStyleDeclaration;
-import org.teavm.jso.dom.events.Event;
 import org.teavm.jso.dom.events.EventListener;
 import org.teavm.jso.dom.events.KeyboardEvent;
 import org.teavm.jso.dom.events.MessageEvent;
@@ -37,12 +35,10 @@ import org.teavm.jso.dom.events.WheelEvent;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
-import org.teavm.jso.dom.html.HTMLImageElement;
 import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.Float32Array;
 import org.teavm.jso.typedarrays.Int32Array;
 import org.teavm.jso.typedarrays.Uint8Array;
-import org.teavm.jso.typedarrays.Uint8ClampedArray;
 import org.teavm.jso.webaudio.AudioBuffer;
 import org.teavm.jso.webaudio.AudioBufferSourceNode;
 import org.teavm.jso.webaudio.AudioContext;
@@ -503,65 +499,65 @@ public class EaglerAdapterImpl2 {
 	public static final int _wGL_POLYGON_OFFSET_FILL = POLYGON_OFFSET_FILL;
 	
 	public static final class TextureGL { 
-		protected final WebGLTexture obj;
+		public final WebGLTexture obj;
 		public int w = -1;
 		public int h = -1;
 		public boolean nearest = true;
 		public boolean anisotropic = false;
-		protected TextureGL(WebGLTexture obj) { 
+		public TextureGL(WebGLTexture obj) { 
 			this.obj = obj; 
 		} 
 	} 
 	public static final class BufferGL { 
-		protected final WebGLBuffer obj; 
-		protected BufferGL(WebGLBuffer obj) { 
+		public final WebGLBuffer obj; 
+		public BufferGL(WebGLBuffer obj) { 
 			this.obj = obj; 
 		} 
 	} 
 	public static final class ShaderGL { 
-		protected final WebGLShader obj; 
-		protected ShaderGL(WebGLShader obj) { 
+		public final WebGLShader obj; 
+		public ShaderGL(WebGLShader obj) { 
 			this.obj = obj; 
 		} 
 	}
 	private static int progId = 0;
 	public static final class ProgramGL { 
-		protected final WebGLProgram obj; 
-		protected final int hashcode; 
-		protected ProgramGL(WebGLProgram obj) { 
+		public final WebGLProgram obj; 
+		public final int hashcode; 
+		public ProgramGL(WebGLProgram obj) { 
 			this.obj = obj; 
 			this.hashcode = ++progId;
 		} 
 	} 
 	public static final class UniformGL { 
-		protected final WebGLUniformLocation obj; 
-		protected UniformGL(WebGLUniformLocation obj) { 
+		public final WebGLUniformLocation obj; 
+		public UniformGL(WebGLUniformLocation obj) { 
 			this.obj = obj; 
 		} 
 	} 
 	public static final class BufferArrayGL { 
-		protected final WebGLVertexArray obj; 
+		public final WebGLVertexArray obj; 
 		public boolean isQuadBufferBound; 
-		protected BufferArrayGL(WebGLVertexArray obj) { 
+		public BufferArrayGL(WebGLVertexArray obj) { 
 			this.obj = obj; 
 			this.isQuadBufferBound = false; 
 		} 
 	} 
 	public static final class FramebufferGL { 
-		protected final WebGLFramebuffer obj; 
-		protected FramebufferGL(WebGLFramebuffer obj) { 
+		public final WebGLFramebuffer obj; 
+		public FramebufferGL(WebGLFramebuffer obj) { 
 			this.obj = obj; 
 		} 
 	} 
 	public static final class RenderbufferGL { 
-		protected final WebGLRenderbuffer obj; 
-		protected RenderbufferGL(WebGLRenderbuffer obj) { 
+		public final WebGLRenderbuffer obj; 
+		public RenderbufferGL(WebGLRenderbuffer obj) { 
 			this.obj = obj; 
 		} 
 	} 
 	public static final class QueryGL { 
-		protected final WebGLQuery obj; 
-		protected QueryGL(WebGLQuery obj) { 
+		public final WebGLQuery obj; 
+		public QueryGL(WebGLQuery obj) { 
 			this.obj = obj; 
 		} 
 	}

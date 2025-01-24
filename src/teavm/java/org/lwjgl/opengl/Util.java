@@ -32,7 +32,6 @@
 package org.lwjgl.opengl;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
 
 /**
  * Simple utility class.
@@ -76,8 +75,6 @@ public final class Util {
 				return "Stack underflow";
 			case GL_OUT_OF_MEMORY:
 				return "Out of memory";
-			case GL_CONTEXT_LOST_WEBGL:
-				return "WebGL context lost";
 			case 0x8031:
 				return "Table too large";
 			case 0x0506:

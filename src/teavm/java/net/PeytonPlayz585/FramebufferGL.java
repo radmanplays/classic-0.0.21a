@@ -1,4 +1,4 @@
-package main;
+package net.PeytonPlayz585;
 
 import org.teavm.jso.webgl.WebGLFramebuffer;
 

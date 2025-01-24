@@ -9,7 +9,6 @@ import java.util.HashMap;
 import net.PeytonPlayz585.opengl.GLObjectMap;
 import net.lax1dude.eaglercraft.EaglerAdapter;
 
-import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2;
 import net.lax1dude.eaglercraft.adapter.vector.Matrix4f;
 import net.lax1dude.eaglercraft.adapter.vector.Vector3f;
 import net.lax1dude.eaglercraft.adapter.vector.Vector4f;
