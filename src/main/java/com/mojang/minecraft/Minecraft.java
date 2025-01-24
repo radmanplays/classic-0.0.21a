@@ -622,6 +622,7 @@ public final class Minecraft implements Runnable {
 									this.setScreen(new InventoryScreen());
 								}
 
+
 								if(Keyboard.getEventKey() == Keyboard.KEY_T && this.connectionManager != null && this.connectionManager.isConnected()) {
 									this.player.releaseAllKeys();
 									this.setScreen(new ChatScreen());

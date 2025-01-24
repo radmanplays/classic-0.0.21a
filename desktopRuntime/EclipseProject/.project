@@ -16,6 +16,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>resources</name>
+			<type>2</type>
+			<location>C:/Users/DELL/Documents/GitHub/classic-0.0.21a/desktopRuntime/resources</location>
+		</link>
+		<link>
 			<name>src_lwjgl_java</name>
 			<type>2</type>
 			<locationURI>PARENT-2-PROJECT_LOC../src/lwjgl/java</locationURI>
