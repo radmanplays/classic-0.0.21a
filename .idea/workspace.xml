@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0acb7e08-1832-472f-8454-87d4a8345847" name="Changes" comment="add BufferUtils">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktopRuntime/EclipseProject/imgui.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktopRuntime/level.dat" beforeDir="false" afterPath="$PROJECT_DIR$/desktopRuntime/level.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lwjgl/java/com/demez/minecraft/Client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwjgl/java/com/demez/minecraft/Client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/demez/minecraft/Client/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mojang/minecraft/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mojang/minecraft/Minecraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mojang/minecraft/renderer/Tesselator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mojang/minecraft/renderer/Tesselator.java" afterDir="false" />
-    </list>
+    <list default="true" id="0acb7e08-1832-472f-8454-87d4a8345847" name="Changes" comment="add BufferUtils" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +23,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="rd-132211" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
