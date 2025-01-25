@@ -34,6 +34,7 @@ import com.mojang.minecraft.renderer.texture.TextureFX;
 import com.mojang.minecraft.renderer.texture.TextureLavaFX;
 import com.mojang.minecraft.renderer.texture.TextureWaterFX;
 
+import me.radmanplays.Util;
 import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
 
 import java.io.File;
@@ -264,6 +265,7 @@ public final class Minecraft implements Runnable {
 			checkGlError("Post startup");
 			this.hud = new InGameHud(this, this.width, this.height);
 		} catch (Exception var36) {
+			Util.alert(var36.toString(), "Failed to start Minecraft");
 			var36.printStackTrace();
 			return;
 		}
