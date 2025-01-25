@@ -28,15 +28,15 @@ public final class Tesselator {
 			this.buffer.clear();
 			this.buffer.put(this.array, 0, this.p);
 			this.buffer.flip();
-//			if(this.hasTexture && this.hasColor) {
-//				GL11.glInterleavedArrays(RealOpenGLEnums.GL_T2F_C3F_V3F, 0, (FloatBuffer)this.buffer);
-//			} else if(this.hasTexture) {
-//				GL11.glInterleavedArrays(RealOpenGLEnums.GL_T2F_V3F, 0, (FloatBuffer)this.buffer);
-//			} else if(this.hasColor) {
-//				GL11.glInterleavedArrays(RealOpenGLEnums.GL_C3F_V3F, 0, (FloatBuffer)this.buffer);
-//			} else {
-//				GL11.glInterleavedArrays(RealOpenGLEnums.GL_V3F, 0, (FloatBuffer)this.buffer);
-//			}
+			if(this.hasTexture && this.hasColor) {
+				GL11.glInterleavedArrays(RealOpenGLEnums.GL_T2F_C3F_V3F, 0, (FloatBuffer)this.buffer);
+			} else if(this.hasTexture) {
+				GL11.glInterleavedArrays(RealOpenGLEnums.GL_T2F_V3F, 0, (FloatBuffer)this.buffer);
+			} else if(this.hasColor) {
+				GL11.glInterleavedArrays(RealOpenGLEnums.GL_C3F_V3F, 0, (FloatBuffer)this.buffer);
+			} else {
+				GL11.glInterleavedArrays(RealOpenGLEnums.GL_V3F, 0, (FloatBuffer)this.buffer);
+			}
 
 			GL11.glEnableClientState(RealOpenGLEnums.GL_VERTEX_ARRAY);
 			if(this.hasTexture) {

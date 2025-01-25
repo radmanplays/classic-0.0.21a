@@ -11,8 +11,6 @@ import org.teavm.jso.core.JSError;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 
-import com.mojang.minecraft.Minecraft;
-
 import net.lax1dude.eaglercraft.adapter.EaglerAdapterImpl2;
 
 public class Client {

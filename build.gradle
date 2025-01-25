@@ -47,7 +47,7 @@ teavm.js {
     obfuscated = false;
     processMemory = 2048
     entryPointName = "main"
-    mainClass = "com.demez.minecraft.Client.Client"
+    mainClass = "me.radmanplays.Client"
     outputDir = file(folder)
     properties = [ "java.util.TimeZone.autodetect": "true" ]
     debugInformation = true
