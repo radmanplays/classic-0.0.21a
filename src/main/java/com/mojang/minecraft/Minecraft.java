@@ -143,7 +143,7 @@ public final class Minecraft implements Runnable {
 			System.out.println("########## GL ERROR ##########");
 			System.out.println("@ " + var0);
 			System.out.println(var1 + ": " + var2);
-			System.exit(0);
+			//System.exit(0);
 		}
 
 	}
@@ -534,7 +534,7 @@ public final class Minecraft implements Runnable {
 					var5 = (int)(var14.z * 32.0F);
 					int var6 = (int)(var14.yRot * 256.0F / 360.0F) & 255;
 					var2 = (int)(var14.xRot * 256.0F / 360.0F) & 255;
-					var9.connection.sendPacket(Packet.PLAYER_TELEPORT, new Object[]{Integer.valueOf(-1), Integer.valueOf(var13), Integer.valueOf(var4), Integer.valueOf(var5), Integer.valueOf(var6), Integer.valueOf(var2)});
+					//var9.connection.sendPacket(Packet.PLAYER_TELEPORT, new Object[]{Integer.valueOf(-1), Integer.valueOf(var13), Integer.valueOf(var4), Integer.valueOf(var5), Integer.valueOf(var6), Integer.valueOf(var2)});
 				}
 			}
 		}

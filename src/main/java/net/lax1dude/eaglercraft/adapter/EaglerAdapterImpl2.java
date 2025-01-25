@@ -352,31 +352,7 @@ public class EaglerAdapterImpl2 {
 	}
 	
 	@JSBody(params = { }, script = 
-			"window.eagsFileChooser = {\r\n" + 
-			"inputElement: null,\r\n" + 
-			"openFileChooser: function(ext, mime){\r\n" + 
-			"var el = window.eagsFileChooser.inputElement = document.createElement(\"input\");\r\n" + 
-			"el.type = \"file\";\r\n" + 
-			"el.multiple = false;\r\n" + 
-			"el.addEventListener(\"change\", function(evt){\r\n" + 
-			"var f = window.eagsFileChooser.inputElement.files;\r\n" + 
-			"if(f.length == 0){\r\n" + 
-			"window.eagsFileChooser.getFileChooserResult = null;\r\n" + 
-			"}else{\r\n" + 
-			"(async function(){\r\n" + 
-			"window.eagsFileChooser.getFileChooserResult = await f[0].arrayBuffer();\r\n" + 
-			"window.eagsFileChooser.getFileChooserResultName = f[0].name;\r\n" + 
-			"})();\r\n" + 
-			"}\r\n" + 
-			"});\r\n" + 
-			"window.eagsFileChooser.getFileChooserResult = null;\r\n" + 
-			"window.eagsFileChooser.getFileChooserResultName = null;\r\n" + 
-			"el.accept = mime;\r\n" + 
-			"el.click();\r\n" + 
-			"},\r\n" + 
-			"getFileChooserResult: null,\r\n" + 
-			"getFileChooserResultName: null\r\n" + 
-			"};")
+			"")
 	private static native void initFileChooser();
 	
 	public static final void destroyContext() {

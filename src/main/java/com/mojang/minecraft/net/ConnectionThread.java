@@ -33,7 +33,7 @@ final class ConnectionThread extends Thread {
 			SocketConnection var4 = var1.connection;
 			var4.manager = var5;
 			var1 = this.connectionManager;
-			var1.connection.sendPacket(Packet.LOGIN, new Object[]{Byte.valueOf((byte)6), this.username, this.mpPass, Integer.valueOf(0)});
+			//var1.connection.sendPacket(Packet.LOGIN, new Object[]{Byte.valueOf((byte)6), this.username, this.mpPass, Integer.valueOf(0)});
 			boolean var6 = true;
 			var1 = this.connectionManager;
 			var1.processData = true;

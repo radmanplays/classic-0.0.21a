@@ -21,7 +21,7 @@ public final class ConnectionManager {
 	}
 
 	public final void sendBlockChange(int var1, int var2, int var3, int var4, int var5) {
-		this.connection.sendPacket(Packet.PLACE_OR_REMOVE_TILE, new Object[]{Integer.valueOf(var1), Integer.valueOf(var2), Integer.valueOf(var3), Integer.valueOf(var4), Integer.valueOf(var5)});
+		//this.connection.sendPacket(Packet.PLACE_OR_REMOVE_TILE, new Object[]{Integer.valueOf(var1), Integer.valueOf(var2), Integer.valueOf(var3), Integer.valueOf(var4), Integer.valueOf(var5)});
 	}
 
 	public final void disconnect(Exception var1) {

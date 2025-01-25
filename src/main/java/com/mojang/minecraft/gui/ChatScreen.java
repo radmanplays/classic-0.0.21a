@@ -29,7 +29,7 @@ public final class ChatScreen extends Screen {
 			ConnectionManager var3 = var10000;
 			var4 = var4.trim();
 			if(var4.length() > 0) {
-				var3.connection.sendPacket(Packet.CHAT_MESSAGE, new Object[]{Integer.valueOf(-1), var4});
+				//var3.connection.sendPacket(Packet.CHAT_MESSAGE, new Object[]{Integer.valueOf(-1), var4});
 			}
 
 			this.minecraft.setScreen((Screen)null);
