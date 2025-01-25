@@ -36,13 +36,6 @@ import com.mojang.minecraft.renderer.texture.TextureWaterFX;
 
 import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
 
-import java.awt.AWTException;
-import java.awt.Canvas;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.Robot;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -51,7 +44,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Iterator;
 import java.util.TreeSet;
-import javax.swing.JOptionPane;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
@@ -75,10 +67,8 @@ public final class Minecraft implements Runnable {
 	private ParticleEngine particleEngine;
 	public User user = null;
 	public String minecraftUri;
-	private Canvas parent;
 	public boolean appletMode = false;
 	public volatile boolean pause = false;
-	private Cursor emptyCursor;
 	private int yMouseAxis = 1;
 	public Textures textures;
 	public Font font;
@@ -89,7 +79,6 @@ public final class Minecraft implements Runnable {
 	private int ticksRan = 0;
 	public String loadMapUser = null;
 	public int loadMapId = 0;
-	private Robot robot;
 	private InGameHud hud;
 	public ConnectionManager connectionManager;
 	String server = null;
@@ -113,22 +102,14 @@ public final class Minecraft implements Runnable {
 	public boolean hideGui = false;
 	public ZombieModel playerModel = new ZombieModel();
 
-	public Minecraft(Canvas var1, int var2, int var3, boolean var4) {
-		this.parent = var1;
+	public Minecraft(int var2, int var3, boolean var4) {
 		this.width = var2;
 		this.height = var3;
 		this.fullscreen = false;
 		this.textures = new Textures();
 		this.textures.registerTextureFX(new TextureLavaFX());
 		this.textures.registerTextureFX(new TextureWaterFX());
-		if(var1 != null) {
-			try {
-				this.robot = new Robot();
-				return;
-			} catch (AWTException var5) {
-				var5.printStackTrace();
-			}
-		}
+		
 
 	}
 
@@ -191,9 +172,7 @@ public final class Minecraft implements Runnable {
 			this.fogColor0.flip();
 			this.fogColor1.put(new float[]{(float)14 / 255.0F, (float)11 / 255.0F, (float)10 / 255.0F, 1.0F});
 			this.fogColor1.flip();
-			if(this.parent != null) {
-				//Display.setParent(this.parent);
-			} else if(this.fullscreen) {
+			if(this.fullscreen) {
 				Display.setFullscreen(true);
 				this.width = Display.getDisplayMode().getWidth();
 				this.height = Display.getDisplayMode().getHeight();
@@ -280,16 +259,12 @@ public final class Minecraft implements Runnable {
 				this.setLevel(this.level);
 			}
 
-			if(this.appletMode) {
-					var4.emptyCursor = new Cursor(16);
-				
-			}
+			
 
 			checkGlError("Post startup");
 			this.hud = new InGameHud(this, this.width, this.height);
 		} catch (Exception var36) {
 			var36.printStackTrace();
-			JOptionPane.showMessageDialog((Component)null, var36.toString(), "Failed to start Minecraft", 0);
 			return;
 		}
 
@@ -301,7 +276,7 @@ public final class Minecraft implements Runnable {
 				if(this.pause) {
 					Thread.sleep(100L);
 				} else {
-					if(this.parent == null && Display.isCloseRequested()) {
+					if(Display.isCloseRequested()) {
 						this.running = false;
 					}
 
@@ -362,22 +337,10 @@ public final class Minecraft implements Runnable {
 						if(this.mouseGrabbed) {
 							var40 = 0;
 							var42 = 0;
-							if(this.appletMode) {
-								if(this.parent != null) {
-									Point var43 = this.parent.getLocationOnScreen();
-									var44 = var43.x + this.width / 2;
-									int var12 = var43.y + this.height / 2;
-									Point var47 = MouseInfo.getPointerInfo().getLocation();
-									var40 = var47.x - var44;
-									var42 = -(var47.y - var12);
-									this.robot.mouseMove(var44, var12);
-								} else {
-									Mouse.setCursorPosition(this.width / 2, this.height / 2);
-								}
-							} else {
+						
 								var40 = Mouse.getDX();
 								var42 = Mouse.getDY();
-							}
+							
 
 							this.player.turn((float)var40, (float)(var42 * this.yMouseAxis));
 						}
