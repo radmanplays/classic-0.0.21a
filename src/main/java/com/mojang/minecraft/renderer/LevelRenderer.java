@@ -1,20 +1,16 @@
 package com.mojang.minecraft.renderer;
 
-import java.nio.IntBuffer;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-
 import com.mojang.minecraft.Entity;
 import com.mojang.minecraft.HitResult;
 import com.mojang.minecraft.level.Level;
 import com.mojang.minecraft.level.tile.Tile;
 import com.mojang.minecraft.player.Player;
-
-import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
+import java.nio.IntBuffer;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 public final class LevelRenderer {
 	public Level level;
@@ -67,10 +63,10 @@ public final class LevelRenderer {
 		}
 
 		this.dirtyChunks.clear();
-		GL11.glNewList(this.surroundLists, RealOpenGLEnums.GL_COMPILE);
+		GL11.glNewList(this.surroundLists, GL11.GL_COMPILE);
 		LevelRenderer var9 = this;
-		GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
-		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, this.textures.getTextureId("/rock.png"));
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textures.getTextureId("/rock.png"));
 		float var10 = 0.5F;
 		GL11.glColor4f(var10, var10, var10, 1.0F);
 		Tesselator var11 = Tesselator.instance;
@@ -103,7 +99,7 @@ public final class LevelRenderer {
 		}
 
 		var11.end();
-		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, var9.textures.getTextureId("/rock.png"));
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, var9.textures.getTextureId("/rock.png"));
 		GL11.glColor3f(0.8F, 0.8F, 0.8F);
 		var11.begin();
 
@@ -132,17 +128,17 @@ public final class LevelRenderer {
 		}
 
 		var11.end();
-		GL11.glDisable(RealOpenGLEnums.GL_BLEND);
-		GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEndList();
-		GL11.glNewList(this.surroundLists + 1, RealOpenGLEnums.GL_COMPILE);
+		GL11.glNewList(this.surroundLists + 1, GL11.GL_COMPILE);
 		var9 = this;
-		GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glColor3f(1.0F, 1.0F, 1.0F);
-		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, this.textures.getTextureId("/water.png"));
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textures.getTextureId("/water.png"));
 		var10 = this.level.getWaterLevel();
-		GL11.glEnable(RealOpenGLEnums.GL_BLEND);
-		GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		var11 = Tesselator.instance;
 		var4 = 128;
 		if(128 > this.level.width) {
@@ -173,8 +169,8 @@ public final class LevelRenderer {
 		}
 
 		var11.end();
-		GL11.glDisable(RealOpenGLEnums.GL_BLEND);
-		GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEndList();
 		this.setDirty(0, 0, 0, this.level.width, this.level.depth, this.level.height);
 	}
@@ -208,18 +204,18 @@ public final class LevelRenderer {
 
 		this.dummyBuffer.flip();
 		if(this.dummyBuffer.remaining() > 0) {
-			GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
-			GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, this.textures.getTextureId("/terrain.png"));
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textures.getTextureId("/terrain.png"));
 			GL11.glCallLists(this.dummyBuffer);
-			GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
 		}
 
 		return this.dummyBuffer.remaining();
 	}
 
 	public final void renderClouds(float var1) {
-		GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
-		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, this.textures.getTextureId("/clouds.png"));
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textures.getTextureId("/clouds.png"));
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Tesselator var2 = Tesselator.instance;
 		float var3 = 0.0F;
@@ -244,7 +240,7 @@ public final class LevelRenderer {
 		}
 
 		var2.end();
-		GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		var2.begin();
 		var2.color(0.5F, 0.8F, 1.0F);
 		var3 = (float)(this.level.depth + 10);
@@ -264,9 +260,9 @@ public final class LevelRenderer {
 	public final void render(int var1, int var2, int var3) {
 		int var6 = this.level.getTile(var1, var2, var3);
 		if(var6 != 0 && Tile.tiles[var6].isSolid()) {
-			GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glColor4f(0.2F, 0.2F, 0.2F, 1.0F);
-			GL11.glDepthFunc(RealOpenGLEnums.GL_LESS);
+			GL11.glDepthFunc(GL11.GL_LESS);
 			Tesselator var4 = Tesselator.instance;
 			var4.begin();
 
@@ -276,7 +272,7 @@ public final class LevelRenderer {
 			}
 
 			var4.end();
-			GL11.glCullFace(RealOpenGLEnums.GL_FRONT);
+			GL11.glCullFace(GL11.GL_FRONT);
 			var4.begin();
 
 			for(var5 = 0; var5 < 6; ++var5) {
@@ -284,17 +280,17 @@ public final class LevelRenderer {
 			}
 
 			var4.end();
-			GL11.glCullFace(RealOpenGLEnums.GL_BACK);
-			GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
-			GL11.glDepthFunc(RealOpenGLEnums.GL_LEQUAL);
+			GL11.glCullFace(GL11.GL_BACK);
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
+			GL11.glDepthFunc(GL11.GL_LEQUAL);
 		}
 	}
 
 	public final void renderHit(Player var1, HitResult var2, int var3, int var4) {
 		Tesselator var5 = Tesselator.instance;
-		GL11.glEnable(RealOpenGLEnums.GL_BLEND);
-		GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
-		GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, ((float)Math.sin((double)System.currentTimeMillis() / 100.0D) * 0.2F + 0.4F) * 0.5F);
 		if(var3 == 0) {
 			var5.begin();
@@ -305,12 +301,12 @@ public final class LevelRenderer {
 
 			var5.end();
 		} else {
-			GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			float var8 = (float)Math.sin((double)System.currentTimeMillis() / 100.0D) * 0.2F + 0.8F;
 			GL11.glColor4f(var8, var8, var8, (float)Math.sin((double)System.currentTimeMillis() / 200.0D) * 0.2F + 0.5F);
-			GL11.glEnable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			int var7 = this.textures.getTextureId("/terrain.png");
-			GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, var7);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var7);
 			var7 = var2.x;
 			var3 = var2.y;
 			int var6 = var2.z;
@@ -343,16 +339,16 @@ public final class LevelRenderer {
 			Tile.tiles[var4].render(var5, this.level, 0, var7, var3, var6);
 			Tile.tiles[var4].render(var5, this.level, 1, var7, var3, var6);
 			var5.end();
-			GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
 		}
 
-		GL11.glDisable(RealOpenGLEnums.GL_BLEND);
-		GL11.glDisable(RealOpenGLEnums.GL_ALPHA_TEST);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
 	}
 
 	public static void renderHitOutline(HitResult var0, int var1) {
-		GL11.glEnable(RealOpenGLEnums.GL_BLEND);
-		GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.4F);
 		float var2 = (float)var0.x;
 		float var3 = (float)var0.y;
@@ -383,21 +379,21 @@ public final class LevelRenderer {
 			}
 		}
 
-		GL11.glBegin(RealOpenGLEnums.GL_LINE_STRIP);
+		GL11.glBegin(GL11.GL_LINE_STRIP);
 		GL11.glVertex3f(var2, var3, var4);
 		GL11.glVertex3f(var2 + 1.0F, var3, var4);
 		GL11.glVertex3f(var2 + 1.0F, var3, var4 + 1.0F);
 		GL11.glVertex3f(var2, var3, var4 + 1.0F);
 		GL11.glVertex3f(var2, var3, var4);
 		GL11.glEnd();
-		GL11.glBegin(RealOpenGLEnums.GL_LINE_STRIP);
+		GL11.glBegin(GL11.GL_LINE_STRIP);
 		GL11.glVertex3f(var2, var3 + 1.0F, var4);
 		GL11.glVertex3f(var2 + 1.0F, var3 + 1.0F, var4);
 		GL11.glVertex3f(var2 + 1.0F, var3 + 1.0F, var4 + 1.0F);
 		GL11.glVertex3f(var2, var3 + 1.0F, var4 + 1.0F);
 		GL11.glVertex3f(var2, var3 + 1.0F, var4);
 		GL11.glEnd();
-		GL11.glBegin(RealOpenGLEnums.GL_LINES);
+		GL11.glBegin(GL11.GL_LINES);
 		GL11.glVertex3f(var2, var3, var4);
 		GL11.glVertex3f(var2, var3 + 1.0F, var4);
 		GL11.glVertex3f(var2 + 1.0F, var3, var4);
@@ -407,7 +403,7 @@ public final class LevelRenderer {
 		GL11.glVertex3f(var2, var3, var4 + 1.0F);
 		GL11.glVertex3f(var2, var3 + 1.0F, var4 + 1.0F);
 		GL11.glEnd();
-		GL11.glDisable(RealOpenGLEnums.GL_BLEND);
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	public final void setDirty(int var1, int var2, int var3, int var4, int var5, int var6) {

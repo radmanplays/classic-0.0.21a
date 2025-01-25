@@ -26,6 +26,7 @@ public class Player extends Entity {
 				this.yd += 0.04F;
 			} else if(this.onGround && !this.input.jump) {
 				this.yd = 0.42F;
+				this.input.jump = true;
 			}
 		} else {
 			this.input.jump = false;

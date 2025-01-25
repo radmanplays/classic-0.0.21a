@@ -1,6 +1,5 @@
 package com.mojang.minecraft.renderer;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -8,64 +7,78 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
+import com.demez.minecraft.Client.GLAllocation;
 import com.mojang.minecraft.renderer.texture.TextureFX;
 
-import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
+import net.PeytonPlayz585.opengl.LWJGLMain;
+import net.PeytonPlayz585.opengl.MinecraftImageData;
 
 public class Textures {
-	private HashMap idMap = new HashMap();
-	public IntBuffer idBuffer = BufferUtils.createIntBuffer(1);
+	public static HashMap<String, Integer> textureMap = new HashMap<String, Integer>();
+	private IntBuffer singleIntBuffer = GLAllocation.createDirectIntBuffer(1);
 	public ByteBuffer textureBuffer = BufferUtils.createByteBuffer(262144);
 	public List textureList = new ArrayList();
 
 	public final int getTextureId(String var1) {
+		Integer integer = (Integer) textureMap.get(var1);
+		if (integer != null) {
+			return integer.intValue();
+		}
 		try {
-			if(this.idMap.containsKey(var1)) {
-				return ((Integer)this.idMap.get(var1)).intValue();
-			} else {
-				int var2 = this.addTexture(ImageIO.read(Textures.class.getResourceAsStream(var1)));
-				this.idMap.put(var1, Integer.valueOf(var2));
-				return var2;
-			}
-		} catch (IOException var3) {
+			singleIntBuffer.clear();
+			GLAllocation.generateTextureNames(singleIntBuffer);
+			int i = singleIntBuffer.get(0);
+			addTexture(readTextureImage(LWJGLMain.loadResourceBytes(var1)), i);
+			textureMap.put(var1, Integer.valueOf(i));
+			return i;
+		} catch (IOException ioexception) {
 			throw new RuntimeException("!!");
 		}
 	}
 
-	public final int addTexture(BufferedImage var1) {
-		this.idBuffer.clear();
-		GL11.glGenTextures(this.idBuffer);
-		int var2 = this.idBuffer.get(0);
-		GL11.glBindTexture(RealOpenGLEnums.GL_TEXTURE_2D, var2);
-		GL11.glTexParameteri(RealOpenGLEnums.GL_TEXTURE_2D, RealOpenGLEnums.GL_TEXTURE_MIN_FILTER, RealOpenGLEnums.GL_NEAREST);
-		GL11.glTexParameteri(RealOpenGLEnums.GL_TEXTURE_2D, RealOpenGLEnums.GL_TEXTURE_MAG_FILTER, RealOpenGLEnums.GL_NEAREST);
-		int var3 = var1.getWidth();
-		int var4 = var1.getHeight();
-		int[] var5 = new int[var3 * var4];
-		byte[] var6 = new byte[var3 * var4 << 2];
-		var1.getRGB(0, 0, var3, var4, var5, 0, var3);
-
-		for(int var11 = 0; var11 < var5.length; ++var11) {
-			int var7 = var5[var11] >>> 24;
-			int var8 = var5[var11] >> 16 & 255;
-			int var9 = var5[var11] >> 8 & 255;
-			int var10 = var5[var11] & 255;
-			var6[var11 << 2] = (byte)var8;
-			var6[(var11 << 2) + 1] = (byte)var9;
-			var6[(var11 << 2) + 2] = (byte)var10;
-			var6[(var11 << 2) + 3] = (byte)var7;
+	public final void addTexture(MinecraftImageData bufferedimage, int i) {
+		// if(alpha) {
+		// 	GL11.glAlphaFunc(516, 0.1F);
+		// }
+		bindTexture(i);
+		GL11.glTexParameteri(3553 /* GL_TEXTURE_2D */, 10241 /* GL_TEXTURE_MIN_FILTER */, 9728 /* GL_NEAREST */);
+		GL11.glTexParameteri(3553 /* GL_TEXTURE_2D */, 10240 /* GL_TEXTURE_MAG_FILTER */, 9728 /* GL_NEAREST */);
+		GL11.glTexParameteri(3553 /* GL_TEXTURE_2D */, 10242 /* GL_TEXTURE_WRAP_S */, 10497 /* GL_REPEAT */);
+		GL11.glTexParameteri(3553 /* GL_TEXTURE_2D */, 10243 /* GL_TEXTURE_WRAP_T */, 10497 /* GL_REPEAT */);
+		int j = bufferedimage.w;
+		int k = bufferedimage.h;
+		int ai[] = bufferedimage.data;
+		byte abyte0[] = new byte[j * k * 4];
+		for (int l = 0; l < ai.length; l++) {
+			int j1 = ai[l] >> 24 & 0xff;
+			int l1 = ai[l] >> 16 & 0xff;
+			int j2 = ai[l] >> 8 & 0xff;
+			int l2 = ai[l] >> 0 & 0xff;
+			abyte0[l * 4 + 0] = (byte) l1;
+			abyte0[l * 4 + 1] = (byte) j2;
+			abyte0[l * 4 + 2] = (byte) l2;
+			abyte0[l * 4 + 3] = (byte) j1;
 		}
+		textureBuffer.clear();
+		textureBuffer.put(abyte0);
+		textureBuffer.position(0).limit(abyte0.length);
+		GL11.glTexImage2D(3553 /* GL_TEXTURE_2D */, 0, GL11.GL_RGBA /* GL_RGBA */, j, k, 0, GL11.GL_RGBA /* GL_RGBA */, 5121 /* GL_UNSIGNED_BYTE */, textureBuffer);
+	}
 
-		this.textureBuffer.clear();
-		this.textureBuffer.put(var6);
-		this.textureBuffer.position(0).limit(var6.length);
-		GL11.glTexImage2D(RealOpenGLEnums.GL_TEXTURE_2D, 0, RealOpenGLEnums.GL_RGBA, var3, var4, 0, RealOpenGLEnums.GL_RGBA, RealOpenGLEnums.GL_UNSIGNED_BYTE, (ByteBuffer)this.textureBuffer);
-		return var2;
+	public void bindTexture(int i) {
+		if (i < 0) {
+			return;
+		} else {
+			GL11.glBindTexture(3553 /* GL_TEXTURE_2D */, i);
+			return;
+		}
+	}
+
+	private MinecraftImageData readTextureImage(byte[] inputstream) throws IOException {
+		return LWJGLMain.loadPNG(inputstream);
 	}
 
 	public final void registerTextureFX(TextureFX var1) {

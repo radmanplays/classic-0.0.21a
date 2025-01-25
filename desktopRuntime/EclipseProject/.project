@@ -18,7 +18,7 @@
 		<link>
 			<name>resources</name>
 			<type>2</type>
-			<location>C:/Users/DELL/Documents/GitHub/classic-0.0.21a/desktopRuntime/resources</location>
+			<location>C:/Users/Administartor/Desktop/astra-eagler-main/classicport/classic-0.0.21a/desktopRuntime/resources</location>
 		</link>
 		<link>
 			<name>src_lwjgl_java</name>
@@ -28,7 +28,7 @@
 		<link>
 			<name>src_main_java</name>
 			<type>2</type>
-			<location>C:/Users/DELL/Documents/GitHub/classic-0.0.21a/src/main/java</location>
+			<location>C:/Users/Administartor/Desktop/astra-eagler-main/classicport/classic-0.0.21a/src/main/java</location>
 		</link>
 	</linkedResources>
 </projectDescription>

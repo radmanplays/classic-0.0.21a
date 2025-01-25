@@ -1,14 +1,10 @@
 package com.mojang.minecraft.renderer;
 
-import java.nio.IntBuffer;
-
-import org.lwjgl.opengl.GL11;
-
 import com.mojang.minecraft.level.Level;
 import com.mojang.minecraft.level.tile.Tile;
 import com.mojang.minecraft.player.Player;
-
-import net.lax1dude.eaglercraft.adapter.RealOpenGLEnums;
+import java.nio.IntBuffer;
+import org.lwjgl.opengl.GL11;
 
 public final class Chunk {
 	private Level level;
@@ -44,7 +40,7 @@ public final class Chunk {
 
 	private void reset() {
 		for(int var1 = 0; var1 < 2; ++var1) {
-			GL11.glNewList(this.lists + var1, RealOpenGLEnums.GL_COMPILE);
+			GL11.glNewList(this.lists + var1, GL11.GL_COMPILE);
 			GL11.glEndList();
 		}
 
@@ -67,7 +63,7 @@ public final class Chunk {
 			int var7 = this.x0 + this.x1;
 			int var8 = this.y0 + this.y1;
 			int var9 = this.z0 + this.z1;
-			GL11.glNewList(this.lists + var1, RealOpenGLEnums.GL_COMPILE);
+			GL11.glNewList(this.lists + var1, GL11.GL_COMPILE);
 			t.begin();
 			boolean var10 = false;
 

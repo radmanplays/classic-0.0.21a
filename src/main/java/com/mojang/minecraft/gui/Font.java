@@ -1,55 +1,80 @@
 package com.mojang.minecraft.gui;
 
-import com.mojang.minecraft.renderer.Tesselator;
-import com.mojang.minecraft.renderer.Textures;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.nio.IntBuffer;
+
 import org.lwjgl.opengl.GL11;
 
+import com.demez.minecraft.Client.FontAllowedCharacters;
+import com.mojang.minecraft.renderer.TextureLocation;
+
+import net.PeytonPlayz585.opengl.LWJGLMain;
+import net.PeytonPlayz585.opengl.MinecraftImageData;
+
 public final class Font {
-	private int[] charWidths = new int[256];
-	private int fontTexture = 0;
+	private int charWidths[];
+	public String fontTextureName;
+	private int fontDisplayLists;
+	private IntBuffer buffer;
+	
+	public static final char formatChar = '\247';
 
-	public Font(String var1, Textures var2) {
-		BufferedImage var3;
-		try {
-			var3 = ImageIO.read(Textures.class.getResourceAsStream(var1));
-		} catch (IOException var13) {
-			throw new RuntimeException(var13);
-		}
 
-		int var4 = var3.getWidth();
-		int var5 = var3.getHeight();
-		int[] var6 = new int[var4 * var5];
-		var3.getRGB(0, 0, var4, var5, var6, 0, var4);
-
-		for(int var14 = 0; var14 < 128; ++var14) {
-			var5 = var14 % 16;
-			int var7 = var14 / 16;
-			int var8 = 0;
-
-			for(boolean var9 = false; var8 < 8 && !var9; ++var8) {
-				int var10 = (var5 << 3) + var8;
-				var9 = true;
-
-				for(int var11 = 0; var11 < 8 && var9; ++var11) {
-					int var12 = ((var7 << 3) + var11) * var4;
-					var12 = var6[var10 + var12] & 255;
-					if(var12 > 128) {
-						var9 = false;
+	public Font(String var1) {
+		charWidths = new int[256];
+		fontTextureName = null;
+		MinecraftImageData bufferedimage = LWJGLMain.loadPNG(LWJGLMain.loadResourceBytes(var1));
+		int i = bufferedimage.w;
+		int j = bufferedimage.h;
+		int ai[] = bufferedimage.data;
+		for (int k = 0; k < 256; k++) {
+			int l = k % 16;
+			int k1 = k / 16;
+			int j2 = 7;
+			do {
+				if (j2 < 0) {
+					break;
+				}
+				int i3 = l * 8 + j2;
+				boolean flag = true;
+				for (int l3 = 0; l3 < 8 && flag; l3++) {
+					int i4 = (k1 * 8 + l3) * i;
+					int k4 = ai[i3 + i4] & 0xff;
+					if (k4 > 0) {
+						flag = false;
 					}
 				}
-			}
 
-			if(var14 == 32) {
-				var8 = 4;
+				if (!flag) {
+					break;
+				}
+				j2--;
+			} while (true);
+			if (k == 32) {
+				j2 = 2;
 			}
-
-			this.charWidths[var14] = var8;
+			charWidths[k] = j2 + 2;
 		}
 
-		this.fontTexture = var2.getTextureId(var1);
+		
+
+		for (int j1 = 0; j1 < 32; j1++) {
+			int i2 = (j1 >> 3 & 1) * 85;
+			int l2 = (j1 >> 2 & 1) * 170 + i2;
+			int j3 = (j1 >> 1 & 1) * 170 + i2;
+			int k3 = (j1 >> 0 & 1) * 170 + i2;
+			if (j1 == 6) {
+				l2 += 85;
+			}
+			boolean flag1 = j1 >= 16;
+			if (flag1) {
+				l2 /= 4;
+				j3 /= 4;
+				k3 /= 4;
+			}
+			GL11.glNewList(fontDisplayLists + 256 + j1, 4864 /* GL_COMPILE */);
+			GL11.glColor3f((float) l2 / 255F, (float) j3 / 255F, (float) k3 / 255F);
+			GL11.glEndList();
+		}
 	}
 
 	public final void drawShadow(String var1, int var2, int var3, int var4) {
@@ -61,72 +86,65 @@ public final class Font {
 		this.draw(var1, var2, var3, var4, false);
 	}
 
-	private void draw(String var1, int var2, int var3, int var4, boolean var5) {
-		if(var1 != null) {
-			char[] var12 = var1.toCharArray();
-			if(var5) {
-				var4 = (var4 & 16579836) >> 2;
-			}
-
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.fontTexture);
-			Tesselator var6 = Tesselator.instance;
-			var6.begin();
-			var6.color(var4);
-			int var7 = 0;
-
-			for(int var8 = 0; var8 < var12.length; ++var8) {
-				int var9;
-				if(var12[var8] == 38 && var12.length > var8 + 1) {
-					var4 = "0123456789abcdef".indexOf(var12[var8 + 1]);
-					if(var4 < 0) {
-						var4 = 15;
-					}
-
-					var9 = (var4 & 8) << 3;
-					int var10 = (var4 & 1) * 191 + var9;
-					int var11 = ((var4 & 2) >> 1) * 191 + var9;
-					var4 = ((var4 & 4) >> 2) * 191 + var9;
-					var4 = var4 << 16 | var11 << 8 | var10;
-					var8 += 2;
-					if(var5) {
-						var4 = (var4 & 16579836) >> 2;
-					}
-
-					var6.color(var4);
-				}
-
-				var4 = var12[var8] % 16 << 3;
-				var9 = var12[var8] / 16 << 3;
-				float var13 = 7.99F;
-				var6.vertexUV((float)(var2 + var7), (float)var3 + var13, 0.0F, (float)var4 / 128.0F, ((float)var9 + var13) / 128.0F);
-				var6.vertexUV((float)(var2 + var7) + var13, (float)var3 + var13, 0.0F, ((float)var4 + var13) / 128.0F, ((float)var9 + var13) / 128.0F);
-				var6.vertexUV((float)(var2 + var7) + var13, (float)var3, 0.0F, ((float)var4 + var13) / 128.0F, (float)var9 / 128.0F);
-				var6.vertexUV((float)(var2 + var7), (float)var3, 0.0F, (float)var4 / 128.0F, (float)var9 / 128.0F);
-				var7 += this.charWidths[var12[var8]];
-			}
-
-			var6.end();
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
+	private void draw(String s, int i, int j, int k, boolean flag) {
+		if (s == null) {
+			return;
 		}
+		if (flag) {
+			int l = k & 0xff000000;
+			k = (k & 0xfcfcfc) >> 2;
+			k += l;
+		}
+		new TextureLocation(fontTextureName).bindTexture();
+		float f = (float) (k >> 16 & 0xff) / 255F;
+		float f1 = (float) (k >> 8 & 0xff) / 255F;
+		float f2 = (float) (k & 0xff) / 255F;
+		float f3 = (float) (k >> 24 & 0xff) / 255F;
+		if (f3 == 0.0F) {
+			f3 = 1.0F;
+		}
+		GL11.glColor4f(f, f1, f2, f3);
+		GL11.glPushMatrix();
+		GL11.glTranslatef(i, j, 0.0F);
+		for (int i1 = 0; i1 < s.length(); i1++) {
+			for (; s.length() > i1 + 1 && s.charAt(i1) == '\247'; i1 += 2) {
+				int j1 = "0123456789abcdef".indexOf(s.toLowerCase().charAt(i1 + 1));
+				if (j1 < 0 || j1 > 15) {
+					j1 = 15;
+				}
+				continue;
+			}
+
+			if (i1 < s.length()) {
+				int k1 = FontAllowedCharacters.isAllowed(s.charAt(i1));
+				if (k1 >= 0) {
+					GL11.glCallList(fontDisplayLists + k1 + 32);
+					GL11.glTranslatef(charWidths[k1 + 32], 0.0F, 0.0F);
+				}
+			}
+		}
+		
+		GL11.glPopMatrix();
 	}
 
-	public final int width(String var1) {
-		if(var1 == null) {
+	public final int width(String s) {
+		if (s == null) {
 			return 0;
-		} else {
-			char[] var4 = var1.toCharArray();
-			int var2 = 0;
-
-			for(int var3 = 0; var3 < var4.length; ++var3) {
-				if(var4[var3] == 38) {
-					++var3;
-				} else {
-					var2 += this.charWidths[var4[var3]];
-				}
-			}
-
-			return var2;
 		}
+		int i = 0;
+		for (int j = 0; j < s.length(); j++) {
+			if (s.charAt(j) == '\247') {
+				j++;
+				continue;
+			}
+			int k = FontAllowedCharacters.isAllowed(s.charAt(j));
+			if (k >= 0) {
+				i += charWidths[k + 32];
+			}
+		}
+
+		return i;
 	}
+	
+	
 }

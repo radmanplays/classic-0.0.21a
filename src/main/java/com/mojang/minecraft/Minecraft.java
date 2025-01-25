@@ -217,7 +217,7 @@ public final class Minecraft implements Runnable {
 			GL11.glLoadIdentity();
 			GL11.glMatrixMode(RealOpenGLEnums.GL_MODELVIEW);
 			checkGlError("Startup");
-			this.font = new Font("/default.png", this.textures);
+			this.font = new Font("/default.png");
 			IntBuffer var8 = BufferUtils.createIntBuffer(256);
 			var8.clear().limit(256);
 			GL11.glViewport(0, 0, this.width, this.height);

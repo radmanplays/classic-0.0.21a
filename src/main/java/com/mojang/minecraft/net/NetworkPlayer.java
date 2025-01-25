@@ -138,7 +138,7 @@ public class NetworkPlayer extends Entity {
 		float var3 = this.oRun + (this.run - this.oRun) * var2;
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		if(this.newTexture != null) {
-			this.skin = var1.addTexture(this.newTexture);
+			//this.skin = var1.bindTexture(this.newTexture);
 			this.newTexture = null;
 		}
 
@@ -308,10 +308,7 @@ public class NetworkPlayer extends Entity {
 			System.out.println("Releasing texture for " + this.name);
 			int var1 = this.skin;
 			Textures var2 = this.textures;
-			var2.idBuffer.clear();
-			var2.idBuffer.put(var1);
-			var2.idBuffer.flip();
-			GL11.glDeleteTextures(var2.idBuffer);
+			
 		}
 
 	}

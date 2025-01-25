@@ -64,7 +64,7 @@ public final class InGameHud {
 			}
 		}
 
-		var1.drawShadow("0.0.21a", 2, 2, 16777215);
+		var1.drawShadow("c0.0.21a TeaVM port by radmanplays and EymenWSMC", 2, 2, 16777215);
 		var1.drawShadow(this.minecraft.fpsString, 2, 12, 16777215);
 		byte var17 = 10;
 		boolean var18 = false;
