@@ -76,6 +76,7 @@ public class Level implements Serializable {
 
 		this.tickList.clear();
 		this.findSpawn();
+		System.gc();
 	}
 
 	public void findSpawn() {
@@ -170,13 +171,13 @@ public class Level implements Serializable {
 					if(var11 >= 0 && var3 >= 0 && var9 >= 0 && var11 < this.width && var3 < this.depth && var9 < this.height) {
 						Tile var12 = Tile.tiles[this.getTile(var11, var3, var9)];
 						if(var12 != null) {
-							var10 = var12.getAABB(var11, var3, var9);
+							var10 = var12.getTileAABB(var11, var3, var9);
 							if(var10 != null) {
 								var2.add(var10);
 							}
 						}
 					} else if(var11 < 0 || var3 < 0 || var9 < 0 || var11 >= this.width || var9 >= this.height) {
-						var10 = Tile.unbreakable.getAABB(var11, var3, var9);
+						var10 = Tile.unbreakable.getTileAABB(var11, var3, var9);
 						if(var10 != null) {
 							var2.add(var10);
 						}

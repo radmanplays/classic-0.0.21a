@@ -32,32 +32,32 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Classic 0.0.20_2" type="f1a62948:ProjectNode" />
+                <item name="Classic 0.0.21a" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Classic 0.0.20_2" type="f1a62948:ProjectNode" />
+                <item name="Classic 0.0.21a" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Classic 0.0.20_2" type="f1a62948:ProjectNode" />
+                <item name="Classic 0.0.21a" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="eaglercraft-0.30" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Classic 0.0.20_2" type="f1a62948:ProjectNode" />
+                <item name="Classic 0.0.21a" type="f1a62948:ProjectNode" />
                 <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Classic 0.0.20_2" type="f1a62948:ProjectNode" />
+                <item name="Classic 0.0.21a" type="f1a62948:ProjectNode" />
                 <item name="src" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Classic 0.0.20_2" type="f1a62948:ProjectNode" />
+                <item name="Classic 0.0.21a" type="f1a62948:ProjectNode" />
                 <item name="src" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
@@ -86,7 +86,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/radmanplays/Classic 0.0.20_2.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/radmanplays/Classic 0.0.21a.git&quot;,
     &quot;accountId&quot;: &quot;956cbec7-a3ee-409a-b863-308a63dc2529&quot;
   }
 }</component>
@@ -106,14 +106,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Gradle.Classic 0.0.20_2 [:com.mojang.rubydung.RubyDung.main()].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [:net.PeytonPlayz585.Client.main()].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [:net.lax1dude.eaglercraft.Client.main()].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [:net.lax1dude.eaglercraft.internal.MainClass.main()].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [generateJavaScript].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [jar].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [runclient].executor": "Run",
-    "Gradle.Classic 0.0.20_2 [teavmc].executor": "Run",
+    "Gradle.Classic 0.0.21a [:com.mojang.rubydung.RubyDung.main()].executor": "Run",
+    "Gradle.Classic 0.0.21a [:net.PeytonPlayz585.Client.main()].executor": "Run",
+    "Gradle.Classic 0.0.21a [:net.lax1dude.eaglercraft.Client.main()].executor": "Run",
+    "Gradle.Classic 0.0.21a [:net.lax1dude.eaglercraft.internal.MainClass.main()].executor": "Run",
+    "Gradle.Classic 0.0.21a [generateJavaScript].executor": "Run",
+    "Gradle.Classic 0.0.21a [jar].executor": "Run",
+    "Gradle.Classic 0.0.21a [runclient].executor": "Run",
+    "Gradle.Classic 0.0.21a [teavmc].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -121,7 +121,7 @@
     "external.system.has.shared.sources": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Administartor/Desktop/astra-eagler-main/Classic 0.0.20_2/desktopRuntime",
+    "last_opened_file_path": "C:/Users/Administartor/Desktop/astra-eagler-main/Classic 0.0.21a/desktopRuntime",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -135,24 +135,24 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Administartor\Desktop\astra-eagler-main\Classic 0.0.20_2\desktopRuntime" />
-      <recent name="C:\Users\Administartor\Classic 0.0.20_2\src\main\java\com\demez\minecraft\Client" />
-      <recent name="C:\Users\Administartor\Classic 0.0.20_2\src\main\resources" />
-      <recent name="C:\Users\Administartor\Classic 0.0.20_2\src\main\java\net\lax1dude\eaglercraft" />
-      <recent name="C:\Users\Administartor\Classic 0.0.20_2\src\main\java\org\json" />
+      <recent name="C:\Users\Administartor\Desktop\astra-eagler-main\Classic 0.0.21a\desktopRuntime" />
+      <recent name="C:\Users\Administartor\Classic 0.0.21a\src\main\java\com\demez\minecraft\Client" />
+      <recent name="C:\Users\Administartor\Classic 0.0.21a\src\main\resources" />
+      <recent name="C:\Users\Administartor\Classic 0.0.21a\src\main\java\net\lax1dude\eaglercraft" />
+      <recent name="C:\Users\Administartor\Classic 0.0.21a\src\main\java\org\json" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Administartor\Desktop\astra-eagler-main\Classic 0.0.20_2\desktopRuntime\resources" />
-      <recent name="C:\Users\Administartor\Classic 0.0.20_2\src\main\java\com\demez\minecraft\Client" />
-      <recent name="C:\Users\Administartor\Classic 0.0.20_2\src\main\java\org\json" />
-      <recent name="C:\Users\HOME\Desktop\Classic 0.0.20_2\Classic 0.0.20_2\src\main\java\net" />
-      <recent name="C:\Users\HOME\Desktop\Classic 0.0.20_2\Classic 0.0.20_2\src\main\java\net\lax1dude\eaglercraft\adapter" />
+      <recent name="C:\Users\Administartor\Desktop\astra-eagler-main\Classic 0.0.21a\desktopRuntime\resources" />
+      <recent name="C:\Users\Administartor\Classic 0.0.21a\src\main\java\com\demez\minecraft\Client" />
+      <recent name="C:\Users\Administartor\Classic 0.0.21a\src\main\java\org\json" />
+      <recent name="C:\Users\HOME\Desktop\Classic 0.0.21a\Classic 0.0.21a\src\main\java\net" />
+      <recent name="C:\Users\HOME\Desktop\Classic 0.0.21a\Classic 0.0.21a\src\main\java\net\lax1dude\eaglercraft\adapter" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Classic 0.0.20_2 [runclient]">
+  <component name="RunManager" selected="Gradle.Classic 0.0.21a [runclient]">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.PeytonPlayz585.Client" />
-      <module name="Classic 0.0.20_2.main" />
+      <module name="Classic 0.0.21a.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="net.PeytonPlayz585.*" />
@@ -165,7 +165,7 @@
     </configuration>
     <configuration name="MainClass" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.lax1dude.eaglercraft.internal.MainClass" />
-      <module name="Classic 0.0.20_2.test" />
+      <module name="Classic 0.0.21a.test" />
       <option name="VM_PARAMETERS" value="-Djava.library.path=." />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/desktopRuntime" />
       <method v="2">
@@ -174,7 +174,7 @@
     </configuration>
     <configuration name="RubyDung" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mojang.rubydung.RubyDung" />
-      <module name="Classic 0.0.20_2.main" />
+      <module name="Classic 0.0.21a.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.mojang.rubydung.*" />
@@ -187,7 +187,7 @@
     </configuration>
     <configuration name="net.lax1dude.eaglercraft.Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.lax1dude.eaglercraft.Client" />
-      <module name="Classic 0.0.20_2.main" />
+      <module name="Classic 0.0.21a.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="net.lax1dude.eaglercraft.*" />
@@ -198,7 +198,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Classic 0.0.20_2 [generateJavaScript]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Classic 0.0.21a [generateJavaScript]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -220,7 +220,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="Classic 0.0.20_2 [runclient]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+    <configuration name="Classic 0.0.21a [runclient]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -242,7 +242,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="Classic 0.0.20_2 [teavmc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Classic 0.0.21a [teavmc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -269,17 +269,17 @@
       <item itemvalue="Application.Client" />
       <item itemvalue="Application.net.lax1dude.eaglercraft.Client" />
       <item itemvalue="Application.RubyDung" />
-      <item itemvalue="Gradle.Classic 0.0.20_2 [runclient]" />
-      <item itemvalue="Gradle.Classic 0.0.20_2 [generateJavaScript]" />
-      <item itemvalue="Gradle.Classic 0.0.20_2 [teavmc]" />
+      <item itemvalue="Gradle.Classic 0.0.21a [runclient]" />
+      <item itemvalue="Gradle.Classic 0.0.21a [generateJavaScript]" />
+      <item itemvalue="Gradle.Classic 0.0.21a [teavmc]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Classic 0.0.20_2 [generateJavaScript]" />
+        <item itemvalue="Gradle.Classic 0.0.21a [generateJavaScript]" />
         <item itemvalue="Application.RubyDung" />
         <item itemvalue="Application.net.lax1dude.eaglercraft.Client" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Gradle.Classic 0.0.20_2 [teavmc]" />
+        <item itemvalue="Gradle.Classic 0.0.21a [teavmc]" />
       </list>
     </recent_temporary>
   </component>
@@ -296,7 +296,7 @@
       <workItem from="1707110405772" duration="2977000" />
       <workItem from="1707133331477" duration="90000" />
     </task>
-    <task id="LOCAL-00001" summary="add Classic 0.0.20_2 sourcecode and eagleradapter">
+    <task id="LOCAL-00001" summary="add Classic 0.0.21a sourcecode and eagleradapter">
       <option name="closed" value="true" />
       <created>1707047542815</created>
       <option name="number" value="00001" />
@@ -339,7 +339,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add Classic 0.0.20_2 sourcecode and eagleradapter" />
+    <MESSAGE value="add Classic 0.0.21a sourcecode and eagleradapter" />
     <MESSAGE value="idk anymore" />
     <MESSAGE value="add BufferUtils" />
     <option name="LAST_COMMIT_MESSAGE" value="add BufferUtils" />

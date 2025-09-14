@@ -127,11 +127,7 @@ public class LiquidTile extends Tile {
 		super.renderBackFace(var1, var2, var3, var4, var5);
 	}
 
-	public final boolean mayPick() {
-		return false;
-	}
-
-	public final AABB getAABB(int var1, int var2, int var3) {
+	public final AABB getTileAABB(int var1, int var2, int var3) {
 		return null;
 	}
 

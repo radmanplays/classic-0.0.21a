@@ -8,10 +8,14 @@ import com.mojang.minecraft.renderer.Textures;
 import org.lwjgl.opengl.GL11;
 
 public final class InventoryScreen extends Screen {
+	public InventoryScreen() {
+		this.allowUserInput = true;
+	}
+
 	private int getTileAtSlot(int var1, int var2) {
 		for(int var3 = 0; var3 < User.creativeTiles.size(); ++var3) {
-			int var4 = this.width / 2 + var3 % 8 * 24 - 96;
-			int var5 = this.height / 2 + var3 / 8 * 24 - 48;
+			int var4 = this.width / 2 + var3 % 8 * 24 - 96 - 3;
+			int var5 = this.height / 2 + var3 / 8 * 24 - 48 + 3;
 			if(var1 >= var4 && var1 <= var4 + 24 && var2 >= var5 - 12 && var2 <= var5 + 12) {
 				return var3;
 			}
@@ -21,17 +25,23 @@ public final class InventoryScreen extends Screen {
 	}
 
 	public final void render(int var1, int var2) {
-		fillGradient(0, 0, this.width, this.height, 1610941696, -1607454624);
-		this.drawCenteredString("Select block", this.width / 2, 40, 16777215);
-		Textures var3 = this.minecraft.textures;
-		Tesselator var4 = Tesselator.instance;
 		var1 = this.getTileAtSlot(var1, var2);
-		var2 = var3.getTextureId("/terrain.png");
+		fillGradient(this.width / 2 - 120, 30, this.width / 2 + 120, 180, -1878719232, -1070583712);
+		if(var1 >= 0) {
+			var2 = this.width / 2 + var1 % 8 * 24 - 96;
+			int var3 = this.height / 2 + var1 / 8 * 24 - 48;
+			fillGradient(var2 - 3, var3 - 8, var2 + 23, var3 + 24 - 6, -1862270977, -1056964609);
+		}
+
+		this.drawCenteredString("Select block", this.width / 2, 40, 16777215);
+		Textures var7 = this.minecraft.textures;
+		Tesselator var8 = Tesselator.instance;
+		var2 = var7.getTextureId("/terrain.png");
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
 		for(var2 = 0; var2 < User.creativeTiles.size(); ++var2) {
-			Tile var7 = (Tile)User.creativeTiles.get(var2);
+			Tile var4 = (Tile)User.creativeTiles.get(var2);
 			GL11.glPushMatrix();
 			int var5 = this.width / 2 + var2 % 8 * 24 - 96;
 			int var6 = this.height / 2 + var2 / 8 * 24 - 48;
@@ -46,9 +56,9 @@ public final class InventoryScreen extends Screen {
 
 			GL11.glTranslatef(-1.5F, 0.5F, 0.5F);
 			GL11.glScalef(-1.0F, -1.0F, -1.0F);
-			var4.begin();
-			var7.render(var4, this.minecraft.level, 0, -2, 0, 0);
-			var4.end();
+			var8.begin();
+			var4.render(var8, this.minecraft.level, 0, -2, 0, 0);
+			var8.end();
 			GL11.glPopMatrix();
 		}
 

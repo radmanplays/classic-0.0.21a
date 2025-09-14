@@ -1,5 +1,6 @@
 package com.mojang.minecraft;
 
+import com.mojang.comm.SocketConnection;
 import com.mojang.minecraft.character.Vec3;
 import com.mojang.minecraft.character.Zombie;
 import com.mojang.minecraft.character.ZombieModel;
@@ -188,7 +189,7 @@ public final class Minecraft implements Runnable {
 				this.height = Display.getHeight();
 			}
 
-			Display.setTitle("Minecraft 0.0.20a_02");
+			Display.setTitle("Minecraft 0.0.21a");
 
 			Display.create();
 			Keyboard.create();
@@ -466,7 +467,7 @@ public final class Minecraft implements Runnable {
 				int var5 = this.player.inventory.getSelected();
 				var4 = Tile.tiles[this.level.getTile(var1, var2, var3)];
 				if(var4 == null || var4 == Tile.water || var4 == Tile.calmWater || var4 == Tile.lava || var4 == Tile.calmLava) {
-					AABB var7 = Tile.tiles[var5].getAABB(var1, var2, var3);
+					AABB var7 = Tile.tiles[var5].getTileAABB(var1, var2, var3);
 					if(var7 == null || (this.player.bb.intersects(var7) ? false : this.level.isFree(var7))) {
 						if(this.isMultiplayer()) {
 							this.connectionManager.sendBlockChange(var1, var2, var3, this.editMode, var5);
@@ -483,67 +484,153 @@ public final class Minecraft implements Runnable {
 	
 	private void tick() {
 		InGameHud var1 = this.hud;
-		for(int var2 = 0; var2 < var1.messages.size(); ++var2) {
+
+		int var2;
+		for(var2 = 0; var2 < var1.messages.size(); ++var2) {
 			++((ChatLine)var1.messages.get(var2)).counter;
 		}
 
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.textures.getTextureId("/terrain.png"));
-		Textures t = this.textures;
+		Textures var8 = this.textures;
 
-		for(int var2 = 0; var2 < t.textureList.size(); ++var2) {
-			TextureFX var3 = (TextureFX)t.textureList.get(var2);
+		for(var2 = 0; var2 < var8.textureList.size(); ++var2) {
+			TextureFX var3 = (TextureFX)var8.textureList.get(var2);
 			var3.onTick();
-			t.textureBuffer.clear();
-			t.textureBuffer.put(var3.imageData);
-			t.textureBuffer.position(0).limit(var3.imageData.length);
-			GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, var3.iconIndex % 16 << 4, var3.iconIndex / 16 << 4, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer)t.textureBuffer);
+			var8.textureBuffer.clear();
+			var8.textureBuffer.put(var3.imageData);
+			var8.textureBuffer.position(0).limit(var3.imageData.length);
+			GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, var3.iconIndex % 16 << 4, var3.iconIndex / 16 << 4, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer)var8.textureBuffer);
 		}
-		int var3;
-		int var4;
-		int var10;
+
+		int var5;
 		if(this.connectionManager != null) {
-			Player var14 = this.player;
-			ConnectionManager var9 = this.connectionManager;
-			if(var9.isConnected()) {
-				int var13 = (int)(var14.x * 32.0F);
-				var4 = (int)(var14.y * 32.0F);
-				int var5 = (int)(var14.z * 32.0F);
-				int var6 = (int)(var14.yRot * 256.0F / 360.0F) & 255;
-				int var2 = (int)(var14.xRot * 256.0F / 360.0F) & 255;
-				var9.connection.sendPacket(Packet.PLAYER_TELEPORT, new Object[]{Integer.valueOf(-1), Integer.valueOf(var13), Integer.valueOf(var4), Integer.valueOf(var5), Integer.valueOf(var6), Integer.valueOf(var2)});
+			if(!this.connectionManager.isConnected()) {
+				this.beginLevelLoading("Connecting..");
+				this.setLoadingProgress(0);
+			} else {
+				ConnectionManager var9 = this.connectionManager;
+				if(var9.processData) {
+					SocketConnection var12 = var9.connection;
+					if(var9.isConnected()) {
+						try {
+							var9.connection.processData();
+						} catch (Exception var7) {
+							var9.minecraft.setScreen(new ErrorScreen("Disconnected!", "You\'ve lost connection to the server"));
+							var9.minecraft.hideGui = false;
+							var7.printStackTrace();
+							var9.connection.disconnect();
+							var9.minecraft.connectionManager = null;
+						}
+					}
+				}
+
+				Player var14 = this.player;
+				var9 = this.connectionManager;
+				if(var9.isConnected()) {
+					int var13 = (int)(var14.x * 32.0F);
+					int var4 = (int)(var14.y * 32.0F);
+					var5 = (int)(var14.z * 32.0F);
+					int var6 = (int)(var14.yRot * 256.0F / 360.0F) & 255;
+					var2 = (int)(var14.xRot * 256.0F / 360.0F) & 255;
+					var9.connection.sendPacket(Packet.PLAYER_TELEPORT, new Object[]{Integer.valueOf(-1), Integer.valueOf(var13), Integer.valueOf(var4), Integer.valueOf(var5), Integer.valueOf(var6), Integer.valueOf(var2)});
+				}
 			}
 		}
 
-		LevelRenderer var11;
-		if(this.screen != null) {
-			this.prevFrameTime = this.ticksRan + 10000;
-		} else {
+		LevelRenderer var16;
+		if(this.screen == null || this.screen.allowUserInput) {
 			if(Mouse.isMouseGrabbed() || Mouse.isActuallyGrabbed()) {
 				this.mouseGrabbed = true;
 			}
-			label218:
+			label251:
 			while(true) {
-				while(Mouse.next()) {
-					var10 = Mouse.getEventDWheel();
-					if(var10 != 0) {
-						int var2 = var10;
-						Inventory inv = this.player.inventory;
-						if(var10 > 0) {
-							var2 = 1;
-						}
+				int var10;
+				if(!Mouse.next()) {
+					while(true) {
+						do {
+							do {
+								if(!Keyboard.next()) {
+									if(this.screen == null && Mouse.isButtonDown(0) && (float)(this.ticksRan - this.prevFrameTime) >= this.timer.ticksPerSecond / 4.0F && this.mouseGrabbed) {
+										this.clickMouse();
+										this.prevFrameTime = this.ticksRan;
+									}
+									break label251;
+								}
 
-						if(var2 < 0) {
-							var2 = -1;
-						}
+								this.player.setKey(Keyboard.getEventKey(), Keyboard.getEventKeyState());
+							} while(!Keyboard.getEventKeyState());
 
-						for(inv.selectedSlot -= var2; inv.selectedSlot < 0; inv.selectedSlot += inv.slots.length) {
-						}
+							if(this.screen != null) {
+								this.screen.updateKeyboardEvents();
+							}
 
-						while(inv.selectedSlot >= inv.slots.length) {
-							inv.selectedSlot -= inv.slots.length;
-						}
+							if(this.screen == null) {
+								if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+									this.pauseGame();
+								}
+
+								if(Keyboard.getEventKey() == Keyboard.KEY_R) {
+									this.player.resetPos();
+								}
+
+								if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
+									this.level.setSpawnPos((int)this.player.x, (int)this.player.y, (int)this.player.z, this.player.yRot);
+									this.player.resetPos();
+								}
+
+								if(Keyboard.getEventKey() == Keyboard.KEY_G && this.connectionManager == null && this.level.entities.size() < 256) {
+									this.level.entities.add(new Zombie(this.level, this.player.x, this.player.y, this.player.z));
+								}
+
+								if(Keyboard.getEventKey() == Keyboard.KEY_B) {
+									this.setScreen(new InventoryScreen());
+								}
+
+								if(Keyboard.getEventKey() == Keyboard.KEY_T && this.connectionManager != null && this.connectionManager.isConnected()) {
+									this.player.releaseAllKeys();
+									this.setScreen(new ChatScreen());
+								}
+							}
+
+							for(var10 = 0; var10 < 9; ++var10) {
+								if(Keyboard.getEventKey() == var10 + 2) {
+									this.player.inventory.selectedSlot = var10;
+								}
+							}
+
+							if(Keyboard.getEventKey() == Keyboard.KEY_Y) {
+								this.yMouseAxis = -this.yMouseAxis;
+							}
+						} while(Keyboard.getEventKey() != Keyboard.KEY_F);
+
+						LevelRenderer var10000 = this.levelRenderer;
+						boolean var20 = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+						var16 = var10000;
+						var16.drawDistance = var16.drawDistance + (var20 ? -1 : 1) & 3;
+					}
+				}
+
+				var10 = Mouse.getEventDWheel();
+				if(var10 != 0) {
+					var2 = var10;
+					Inventory var11 = this.player.inventory;
+					if(var10 > 0) {
+						var2 = 1;
 					}
 
+					if(var2 < 0) {
+						var2 = -1;
+					}
+
+					for(var11.selectedSlot -= var2; var11.selectedSlot < 0; var11.selectedSlot += var11.slots.length) {
+					}
+
+					while(var11.selectedSlot >= var11.slots.length) {
+						var11.selectedSlot -= var11.slots.length;
+					}
+				}
+
+				if(this.screen == null) {
 					if(!this.mouseGrabbed && Mouse.getEventButtonState()) {
 						this.grabMouse();
 					} else {
@@ -557,13 +644,13 @@ public final class Minecraft implements Runnable {
 						}
 
 						if(Mouse.getEventButton() == 2 && Mouse.getEventButtonState() && this.hitResult != null) {
-							int var2 = this.level.getTile(this.hitResult.x, this.hitResult.y, this.hitResult.z);
+							var2 = this.level.getTile(this.hitResult.x, this.hitResult.y, this.hitResult.z);
 							if(var2 == Tile.grass.id) {
 								var2 = Tile.dirt.id;
 							}
 
 							Inventory var15 = this.player.inventory;
-							int var5 = var15.getSlotContainsID(var2);
+							var5 = var15.getSlotContainsID(var2);
 							if(var5 >= 0) {
 								var15.selectedSlot = var5;
 							} else if(var2 > 0 && User.creativeTiles.contains(Tile.tiles[var2])) {
@@ -573,67 +660,27 @@ public final class Minecraft implements Runnable {
 					}
 				}
 
-				while(true) {
-					do {
-						if(!Keyboard.next()) {
-							if(Mouse.isButtonDown(0) && (float)(this.ticksRan - this.prevFrameTime) >= this.timer.ticksPerSecond / 4.0F && this.mouseGrabbed) {
-								this.clickMouse();
-								this.prevFrameTime = this.ticksRan;
-							}
-							break label218;
-						}
-
-						this.player.setKey(Keyboard.getEventKey(), Keyboard.getEventKeyState());
-					} while(!Keyboard.getEventKeyState());
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-						this.pauseGame();
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_R) {
-						this.player.resetPos();
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
-						this.level.setSpawnPos((int)this.player.x, (int)this.player.y, (int)this.player.z, this.player.yRot);
-						this.player.resetPos();
-					}
-
-					for(var10 = 0; var10 < 9; ++var10) {
-						if(Keyboard.getEventKey() == var10 + 2) {
-							this.player.inventory.selectedSlot = var10;
-						}
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_Y) {
-						this.yMouseAxis = -this.yMouseAxis;
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_G && this.connectionManager == null && this.level.entities.size() < 256) {
-						this.level.entities.add(new Zombie(this.level, this.player.x, this.player.y, this.player.z));
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_F) {
-						LevelRenderer var10000 = this.levelRenderer;
-						boolean var19 = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-						LevelRenderer var16 = var10000;
-						var16.drawDistance = var16.drawDistance + (var19 ? -1 : 1) & 3;
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_B) {
-						this.setScreen(new InventoryScreen());
-					}
-
-					if(Keyboard.getEventKey() == Keyboard.KEY_T && this.connectionManager != null && this.connectionManager.isConnected()) {
-						this.player.releaseAllKeys();
-						this.setScreen(new ChatScreen());
-					}
+				if(this.screen != null) {
+					this.screen.updateMouseEvents();
 				}
 			}
 		}
 
 		if(this.screen != null) {
-			this.screen.updateEvents();
+			this.prevFrameTime = this.ticksRan + 10000;
+		}
+
+		if(this.screen != null) {
+			Screen var17 = this.screen;
+
+			while(Mouse.next()) {
+				var17.updateMouseEvents();
+			}
+
+			while(Keyboard.next()) {
+				var17.updateKeyboardEvents();
+			}
+
 			if(this.screen != null) {
 				this.screen.tick();
 			}
@@ -642,25 +689,26 @@ public final class Minecraft implements Runnable {
 		if(this.connectionManager != null) {
 			this.connectionManager.tick();
 		}
-			if(this.level != null) {
-			LevelRenderer var16 = this.levelRenderer;
+		if(this.level != null) {
+			var16 = this.levelRenderer;
 			++var16.cloudTickCounter;
 			this.level.tickEntities();
 			if(!this.isMultiplayer()) {
 				this.level.tick();
 			}
 
-			ParticleEngine var18 = this.particleEngine;
+			ParticleEngine var19 = this.particleEngine;
 
-			for(int var2 = 0; var2 < var18.particles.size(); ++var2) {
-				Particle var17 = (Particle)var18.particles.get(var2);
-				var17.tick();
-				if(var17.removed) {
-					var18.particles.remove(var2--);
+			for(var2 = 0; var2 < var19.particles.size(); ++var2) {
+				Particle var18 = (Particle)var19.particles.get(var2);
+				var18.tick();
+				if(var18.removed) {
+					var19.particles.remove(var2--);
 				}
 			}
 
 			this.player.tick();
+
 			if(this.connectionManager == null) {
 				levelSave();
 			}
@@ -669,16 +717,6 @@ public final class Minecraft implements Runnable {
 	
 	private boolean isMultiplayer() {
 		return this.connectionManager != null;
-	}
-
-	private void orientCamera(float var1) {
-		GL11.glTranslatef(0.0F, 0.0F, -0.3F);
-		GL11.glRotatef(this.player.xRotO + (this.player.xRot - this.player.xRotO) * var1, 1.0F, 0.0F, 0.0F);
-		GL11.glRotatef(this.player.yRotO + (this.player.yRot - this.player.yRotO) * var1, 0.0F, 1.0F, 0.0F);
-		float var2 = this.player.xo + (this.player.x - this.player.xo) * var1;
-		float var3 = this.player.yo + (this.player.y - this.player.yo) * var1;
-		float var4 = this.player.zo + (this.player.z - this.player.zo) * var1;
-		GL11.glTranslatef(-var2, -var3, -var4);
 	}
 
 	private void render(float var1) {
@@ -723,37 +761,26 @@ public final class Minecraft implements Runnable {
 		GL11.glClearColor(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 0.0F);
 		GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
 		checkGlError("Set viewport");
-		float pitch = this.player.xRot;
-		float yaw = this.player.yRot;
-
-		double px = this.player.x;
-		double py = this.player.y;
-		double pz = this.player.z;
-
-		Vec3 cameraPos = new Vec3((float)px, (float)py, (float)pz);
-
-		float cosYaw = (float)Math.cos(-Math.toRadians(yaw) - Math.PI);
-		float sinYaw = (float)Math.sin(-Math.toRadians(yaw) - Math.PI);
-		float cosPitch = (float)Math.cos(-Math.toRadians(pitch));
-		float sinPitch = (float)Math.sin(-Math.toRadians(pitch));
-
-		float dirX = sinYaw * cosPitch;
-		float dirY = sinPitch;
-		float dirZ = cosYaw * cosPitch;
-		float reachDistance = 3.0F;
-		if (pitch > 60.0F) {
-		    reachDistance += 1.0F;
-		}
-		if (pitch >= 55.0F && pitch <= 60.0F) {
-		    reachDistance += 2.0F;
-		}
-		Vec3 reachVec = new Vec3(
-		    cameraPos.x + dirX * reachDistance,
-		    cameraPos.y + dirY * reachDistance,
-		    cameraPos.z + dirZ * reachDistance
-		);
-
-		this.hitResult = this.level.clip(cameraPos, reachVec);
+		float var13 = this.player.xRotO + (this.player.xRot - this.player.xRotO) * var1;
+		float var17 = this.player.yRotO + (this.player.yRot - this.player.yRotO) * var1;
+		float var7 = this.player.xo + (this.player.x - this.player.xo) * var1;
+		float var8 = this.player.yo + (this.player.y - this.player.yo) * var1;
+		float var2 = this.player.zo + (this.player.z - this.player.zo) * var1;
+		Vec3 var9 = new Vec3(var7, var8, var2);
+		var4 = (float)Math.cos((double)(-var17) * Math.PI / 180.0D + Math.PI);
+		var17 = (float)Math.sin((double)(-var17) * Math.PI / 180.0D + Math.PI);
+		var7 = (float)Math.cos((double)(-var13) * Math.PI / 180.0D);
+		var13 = (float)Math.sin((double)(-var13) * Math.PI / 180.0D);
+		var17 *= var7;
+		var4 *= var7;
+		var7 = 5.0F;
+		float var10001 = var17 * var7;
+		float var10002 = var13 * var7;
+		var7 = var4 * var7;
+		var17 = var10002;
+		var13 = var10001;
+		Vec3 var14 = new Vec3(var9.x + var13, var9.y + var17, var9.z + var7);
+		this.hitResult = this.level.clip(var9, var14);
 		checkGlError("Picked");
 		this.fogColorMultiplier = 1.0F;
 		this.renderDistance = (float)(512 >> (this.levelRenderer.drawDistance << 1));
@@ -771,7 +798,13 @@ public final class Minecraft implements Runnable {
 	        }
 	    }
 	    
-		this.orientCamera(var1);
+		GL11.glTranslatef(0.0F, 0.0F, -0.3F);
+		GL11.glRotatef(this.player.xRotO + (this.player.xRot - this.player.xRotO) * var1, 1.0F, 0.0F, 0.0F);
+		GL11.glRotatef(this.player.yRotO + (this.player.yRot - this.player.yRotO) * var1, 0.0F, 1.0F, 0.0F);
+		var7 = this.player.xo + (this.player.x - this.player.xo) * var1;
+		var8 = this.player.yo + (this.player.y - this.player.yo) * var1;
+		var2 = this.player.zo + (this.player.z - this.player.zo) * var1;
+		GL11.glTranslatef(-var7, -var8, -var2);
 		checkGlError("Set up camera");
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		Frustum var23 = Frustum.getFrustum();
@@ -811,10 +844,10 @@ public final class Minecraft implements Runnable {
 			int y = (int)this.player.y;
 			var25 = (int)this.player.z;
 
-			for(int var2 = x - 1; var2 <= x + 1; ++var2) {
-				for(int var7 = y - 1; var7 <= y + 1; ++var7) {
-					for(int var8 = var25 - 1; var8 <= var25 + 1; ++var8) {
-						this.levelRenderer.render(var2, var7, var8);
+			for(int ix = x - 1; ix <= x + 1; ++ix) {
+				for(int iy = y - 1; iy <= y + 1; ++iy) {
+					for(int iz = var25 - 1; iz <= var25 + 1; ++iz) {
+						this.levelRenderer.render(ix, iy, iz);
 					}
 				}
 			}

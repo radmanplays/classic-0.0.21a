@@ -19,4 +19,4 @@ favicon-image-mime=image/png
 jspi-unavailable-file=enableJSPIScreen.html
 offline-download-template=OfflineDownloadTemplate.txt
 offline-download-script=../javascript_dist/bootstrap.js
-offline-download-name=Classic 0.0.20_2-WASM.html
+offline-download-name=Classic 0.0.21a-WASM.html

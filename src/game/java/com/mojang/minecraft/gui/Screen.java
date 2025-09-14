@@ -18,6 +18,7 @@ public class Screen {
 	protected int width;
 	protected int height;
 	protected List buttons = new ArrayList();
+	public boolean allowUserInput = false;
 
 	public void render(int var1, int var2) {
 		for(int var3 = 0; var3 < this.buttons.size(); ++var3) {
@@ -129,19 +130,18 @@ public class Screen {
 		var5.drawShadow(var1, var2, var3, var4);
 	}
 
-	public final void updateEvents() {
-		while(Mouse.next()) {
-			if(Mouse.getEventButtonState()) {
-				int var1 = Mouse.getEventX() * this.width / this.minecraft.width;
-				int var2 = this.height - Mouse.getEventY() * this.height / this.minecraft.height - 1;
-				this.mousePressed(var1, var2, Mouse.getEventButton());
-			}
+	public final void updateMouseEvents() {
+		if(Mouse.getEventButtonState()) {
+			int var1 = Mouse.getEventX() * this.width / this.minecraft.width;
+			int var2 = this.height - Mouse.getEventY() * this.height / this.minecraft.height - 1;
+			this.mousePressed(var1, var2, Mouse.getEventButton());
 		}
 
-		while(Keyboard.next()) {
-			if(Keyboard.getEventKeyState()) {
-				this.keyPressed(Keyboard.getEventCharacter(), Keyboard.getEventKey());
-			}
+	}
+
+	public final void updateKeyboardEvents() {
+		if(Keyboard.getEventKeyState()) {
+			this.keyPressed(Keyboard.getEventCharacter(), Keyboard.getEventKey());
 		}
 
 	}

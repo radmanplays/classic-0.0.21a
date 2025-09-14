@@ -1,4 +1,4 @@
-# Classic 0.0.20_2 [![Build and Upload JS + WASM](https://github.com/radmanplays/classic-0.0.20a_02/actions/workflows/gradle.yml/badge.svg)](https://github.com/radmanplays/classic-0.0.20a_02/actions/workflows/gradle.yml)
+# Classic 0.0.21a [![Build and Upload JS + WASM](https://github.com/radmanplays/classic-0.0.20a_02/actions/workflows/gradle.yml/badge.svg)](https://github.com/radmanplays/classic-0.0.20a_02/actions/workflows/gradle.yml)
 ![Classic_0 0 20a_02_adcastleupperfront](https://github.com/user-attachments/assets/32639ae2-c9e5-4012-b623-bc378f18d266)
 
 

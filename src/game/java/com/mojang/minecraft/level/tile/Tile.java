@@ -148,34 +148,6 @@ public class Tile {
 		return var1.getBrightness(var2, var3, var4);
 	}
 
-	public static boolean cullFace(Level var0, int var1, int var2, int var3, int var4) {
-		if(var4 == 0) {
-			--var2;
-		}
-
-		if(var4 == 1) {
-			++var2;
-		}
-
-		if(var4 == 2) {
-			--var3;
-		}
-
-		if(var4 == 3) {
-			++var3;
-		}
-
-		if(var4 == 4) {
-			--var1;
-		}
-
-		if(var4 == 5) {
-			++var1;
-		}
-
-		return !var0.isSolidTile(var1, var2, var3);
-	}
-
 	protected boolean shouldRenderFace(Level var1, int var2, int var3, int var4, int var5, int var6) {
 		return var5 == 1 ? false : !var1.isSolidTile(var2, var3, var4);
 	}
@@ -338,11 +310,7 @@ public class Tile {
 
 	}
 
-	public static AABB getTileAABB(int var0, int var1, int var2) {
-		return new AABB((float)var0, (float)var1, (float)var2, (float)(var0 + 1), (float)(var1 + 1), (float)(var2 + 1));
-	}
-
-	public AABB getAABB(int var1, int var2, int var3) {
+	public AABB getTileAABB(int var1, int var2, int var3) {
 		return new AABB((float)var1, (float)var2, (float)var3, (float)(var1 + 1), (float)(var2 + 1), (float)(var3 + 1));
 	}
 
@@ -351,10 +319,6 @@ public class Tile {
 	}
 
 	public boolean isSolid() {
-		return true;
-	}
-
-	public boolean mayPick() {
 		return true;
 	}
 
