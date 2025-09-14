@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>classic-0.0.21a</name>
+	<name>eclipseProject</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,19 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>java</name>
+			<name>src_game_java</name>
 			<type>2</type>
-			<location>C:/Users/Administartor/Desktop/astra-eagler-main/classicport/classic-0.0.21a/src/main/java</location>
-		</link>
-		<link>
-			<name>res</name>
-			<type>2</type>
-			<location>C:/Users/Administartor/Desktop/astra-eagler-main/classicport/classic-0.0.21a/desktopRuntime/resources</location>
-		</link>
-		<link>
-			<name>resources</name>
-			<type>2</type>
-			<location>C:/Users/Administartor/Desktop/astra-eagler-main/classicport/classic-0.0.21a/desktopRuntime/resources</location>
+			<locationURI>PARENT-2-PROJECT_LOC../src/game/java</locationURI>
 		</link>
 		<link>
 			<name>src_lwjgl_java</name>
@@ -38,7 +28,7 @@
 		<link>
 			<name>src_main_java</name>
 			<type>2</type>
-			<location>C:/Users/Administartor/Desktop/astra-eagler-main/classicport/classic-0.0.21a/src/main/java</location>
+			<locationURI>PARENT-2-PROJECT_LOC../src/main/java</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
