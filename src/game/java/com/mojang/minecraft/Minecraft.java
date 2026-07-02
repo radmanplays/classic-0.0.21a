@@ -105,6 +105,7 @@ public final class Minecraft implements Runnable {
 	private String text = "";
 	public boolean hideGui = false;
 	public ZombieModel playerModel = new ZombieModel();
+	private long start = EagRuntime.steadyTimeMillis();
 
 	
 	public Minecraft(int var2, int var3, boolean var4) {
@@ -982,43 +983,47 @@ public final class Minecraft implements Runnable {
 		if(!this.running) {
 			throw new StopGameException();
 		} else {
-			int var2 = this.width * 240 / this.height;
-			int var3 = this.height * 240 / this.height;
-			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
-			Tesselator var4 = Tesselator.instance;
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			int var5 = this.textures.getTextureId("/dirt.png");
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, var5);
-			float var8 = 32.0F;
-			var4.begin();
-			var4.color(4210752);
-			var4.vertexUV(0.0F, (float)var3, 0.0F, 0.0F, (float)var3 / var8);
-			var4.vertexUV((float)var2, (float)var3, 0.0F, (float)var2 / var8, (float)var3 / var8);
-			var4.vertexUV((float)var2, 0.0F, 0.0F, (float)var2 / var8, 0.0F);
-			var4.vertexUV(0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-			var4.end();
-			if(var1 >= 0) {
-				var5 = var2 / 2 - 50;
-				int var6 = var3 / 2 + 16;
-				GL11.glDisable(GL11.GL_TEXTURE_2D);
-				var4.begin();
-				var4.color(8421504);
-				var4.vertex((float)var5, (float)var6, 0.0F);
-				var4.vertex((float)var5, (float)(var6 + 2), 0.0F);
-				var4.vertex((float)(var5 + 100), (float)(var6 + 2), 0.0F);
-				var4.vertex((float)(var5 + 100), (float)var6, 0.0F);
-				var4.color(8454016);
-				var4.vertex((float)var5, (float)var6, 0.0F);
-				var4.vertex((float)var5, (float)(var6 + 2), 0.0F);
-				var4.vertex((float)(var5 + var1), (float)(var6 + 2), 0.0F);
-				var4.vertex((float)(var5 + var1), (float)var6, 0.0F);
-				var4.end();
+			long s;
+			if ((s = EagRuntime.steadyTimeMillis()) - this.start < 0L || s - this.start >= 20L) {
+				this.start = s;
+				int var2 = this.width * 240 / this.height;
+				int var3 = this.height * 240 / this.height;
+				GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
+				Tesselator var4 = Tesselator.instance;
 				GL11.glEnable(GL11.GL_TEXTURE_2D);
+				int var5 = this.textures.getTextureId("/dirt.png");
+				GL11.glBindTexture(GL11.GL_TEXTURE_2D, var5);
+				float var8 = 32.0F;
+				var4.begin();
+				var4.color(4210752);
+				var4.vertexUV(0.0F, (float)var3, 0.0F, 0.0F, (float)var3 / var8);
+				var4.vertexUV((float)var2, (float)var3, 0.0F, (float)var2 / var8, (float)var3 / var8);
+				var4.vertexUV((float)var2, 0.0F, 0.0F, (float)var2 / var8, 0.0F);
+				var4.vertexUV(0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+				var4.end();
+				if(var1 >= 0) {
+					var5 = var2 / 2 - 50;
+					int var6 = var3 / 2 + 16;
+					GL11.glDisable(GL11.GL_TEXTURE_2D);
+					var4.begin();
+					var4.color(8421504);
+					var4.vertex((float)var5, (float)var6, 0.0F);
+					var4.vertex((float)var5, (float)(var6 + 2), 0.0F);
+					var4.vertex((float)(var5 + 100), (float)(var6 + 2), 0.0F);
+					var4.vertex((float)(var5 + 100), (float)var6, 0.0F);
+					var4.color(8454016);
+					var4.vertex((float)var5, (float)var6, 0.0F);
+					var4.vertex((float)var5, (float)(var6 + 2), 0.0F);
+					var4.vertex((float)(var5 + var1), (float)(var6 + 2), 0.0F);
+					var4.vertex((float)(var5 + var1), (float)var6, 0.0F);
+					var4.end();
+					GL11.glEnable(GL11.GL_TEXTURE_2D);
+				}
+	
+				this.font.drawShadow(this.title, (var2 - this.font.width(this.title)) / 2, var3 / 2 - 4 - 16, 16777215);
+				this.font.drawShadow(this.text, (var2 - this.font.width(this.text)) / 2, var3 / 2 - 4 + 8, 16777215);
+				Display.update();
 			}
-
-			this.font.drawShadow(this.title, (var2 - this.font.width(this.title)) / 2, var3 / 2 - 4 - 16, 16777215);
-			this.font.drawShadow(this.text, (var2 - this.font.width(this.text)) / 2, var3 / 2 - 4 + 8, 16777215);
-			Display.update();
 		}
 	}
 
